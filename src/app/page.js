@@ -4,37 +4,61 @@ import Navbar from "./components/Navbar";
 import banner from "/public/assets/hero-section.png";
 import { Icon } from "@iconify/react";
 
-
 export default function Home() {
   return (
     <div>
       <Navbar />
-        <div className="w-full pb-40">
-          <Image src={banner} width={1800}  alt="Logo do Lar São Francisco" />   
+      <div className="w-full">
+        <div className="relative">
+          <Image src={banner} alt="Logo do Lar São Francisco" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 flex items-center justify-center">  
+            <div className="text-white px-4 flex flex-col justify-center items-center">
+              <h1 className="md:text-[48px] sm:text-[32px] text-[24px] font-bold text-center">Nos ajude a salvar mais animais</h1>
+              <h2 className="md:text-[24px] sm:text-[18px] text-[16px] text-center mt-4">Com sua doação, podemos continuar oferecendo abrigo, alimento e tratamento veterinário.</h2>
+               <button className="bg-[#2B9EED] p-3 rounded-3xl w-[125px] hover:cursor-pointer">
+                  Doar
+               </button>
+            </div>
+          </div>
         </div>
-                   
-        <div className=" md:flex flex-col gap-3 my-5 p-5 rounded-2xl bg-white text-black m-16">
-                    <div className="text-[28px] font-bold pb-5 flex justify-start mb-5">
-                        <p>Onde estamos</p>
-                    </div>
-                <div className="flex gap-5 w-full">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3658.508432687855!2d-47.51216258911936!3d-23.51420892939673!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c58b4686345021%3A0x6c12d178dc50cc9b!2sAv.%20Prof.%20Fl%C3%A1vio%20Fazano%2C%20293%2C%20Sorocaba%20-%20SP%2C%2018051-725!5e0!3m2!1spt-BR!2sbr!4v1742392034855!5m2!1spt-BR!2sbr" width="639" height="396"  loading="lazy"></iframe>
-                        <div className="flex flex-col gap-5">
-                            <div className="flex gap-3">
-                            <Icon icon="ri:map-pin-fill" height={24}/>
-                                <p>Av. Flávio Fazano, 293 - Piazza de Roma - Sorocaba / SP</p>
-                            </div>
-                            <div className="flex gap-3">
-                                <Icon icon="mingcute:instagram-fill" height={24}/>
-                                <p>@larsaofranciscosorocaba</p>
-                            </div>
-                            <div className="flex gap-3">
-                                <Icon icon="mage:whatsapp-filled" height={24}/>
-                                <p>(15) 98800-1704</p>
-                            </div>
-                        </div>
-                </div>
-            </div>        
+      </div>
+     
+      <main className="container mx-auto px-4 text-black">
+          <h2 className="text-3xl font-bold text-left mt-12 mb-8">Quem somos</h2>
+        <div className=" gap-4 justify-center md:flex">
+          <div className="hidden md:flex lg:flex">
+            <Image height={528} width={528} src="/assets/dog-image.png" className="object-cover rounded-2xl"></Image>
+          </div>
+            
+            <div className="grid grid-rows-[auto,1fr,auto] grid-cols-2 gap-4 lg:flex lg:flex-col">
+              <div className="bg-[#F2DBD5] rounded-2xl p-4 text-center col-span-2 lg:flex justify-between lg:w-[531px]">
+                <span className="font-bold block text-[32px]">+1200</span> Animais resgatados  
+              </div>
+
+              <div className="bg-[#F2DBD5] rounded-2xl p-4 text-center lg:flex justify-between lg:w-[531px]">
+                <span className="font-bold block text-[32px]">300</span> Adoções 
+              </div>
+              <div className="bg-[#F2DBD5] rounded-2xl p-4 text-center lg:flex justify-between lg:w-[531px]">
+                <span className="font-bold block text-[32px]">300</span> Doadores
+              </div>
+
+              <div className="bg-[#F2DBD5] rounded-2xl p-4 text-center col-span-2 lg:flex justify-between lg:w-[531px]">
+                <span className="font-bold block text-[32px]">300</span> Voluntários
+              </div>
+            </div>
+
+        
+        
+        </div>
+        <div>
+              <p className="my-5">
+                Somos a  <span className="font-bold">Lar São Francisco</span>, uma organização dedicada ao resgate, cuidado e reabilitação de animais em situação de vulnerabilidade.
+                Nosso compromisso é oferecer uma segunda chance para cães e gatos abandonados, garantindo abrigo, alimentação e cuidados veterinários
+                até que encontrem um lar amoroso. 
+              </p> 
+              <span className="font-bold">Saiba mais</span>
+        </div>
+      </main>
       <Footer />
     </div>
   );

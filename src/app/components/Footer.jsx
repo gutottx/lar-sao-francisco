@@ -7,11 +7,6 @@ import { Icon } from "@iconify/react";
 function Footer() {
     return ( 
         <footer className="bg-[#1E1E1E] w-full flex-col flex items-center justify-center p-5">
-           
-          
-               
-
-          {/* ------------------------------------------------------------------------------------- */}
              <div className="flex gap-5">
                  <Icon icon="mdi-facebook" height={24}/>
                 <span>Facebook</span>
