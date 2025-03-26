@@ -2,6 +2,7 @@ import Image from "next/image";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import banner from "/public/assets/hero-section.png";
+import bannermb from "/public/assets/hero-section-mb.png";
 import Map from "./components/Map";
 
 export default function Home() {
@@ -10,11 +11,12 @@ export default function Home() {
       <Navbar />
       <div className="w-full">
         <div className="relative">
-          <Image src={banner} alt="Logo do Lar São Francisco" className="w-full h-full object-cover" />
+          <Image src={banner} alt="Logo do Lar São Francisco" className="w-full h-full object-cover hidden md:block lg:block"/>
+          <Image src={bannermb} alt="Logo do Lar São Francisco" className="w-full h-full object-cover block md:hidden lg:hidden"/>
           <div className="absolute inset-0 flex items-center justify-center">  
             <div className="text-white px-4 flex flex-col justify-center items-center">
               <h1 className="md:text-[48px] sm:text-[32px] text-[24px] font-bold text-center">Nos ajude a salvar mais animais</h1>
-              <h2 className="md:text-[24px] sm:text-[18px] text-[16px] text-center mt-4">Com sua doação, podemos continuar oferecendo abrigo, alimento e tratamento veterinário.</h2>
+              <h2 className="md:text-[24px] sm:text-[18px] text-[16px] text-center mt-4 mb-10">Com sua doação, podemos continuar oferecendo abrigo, alimento e tratamento veterinário.</h2>
                <button className="bg-[#2B9EED] p-3 rounded-3xl w-[125px] hover:cursor-pointer hover:bg-[#1a8cd6] transition-colors duration-300">
                   Doar
                </button>
@@ -55,24 +57,33 @@ export default function Home() {
 
         <div className="bg-white p-4 my-10 rounded-2xl">
               <h2 className="text-3xl font-bold text-left mb-8">Como ajudar</h2>
-          <div className="grid grid-cols-2 gap-3">
-            <div  className="flex flex-col gap-5 justify-between">
-              <Image src="/assets/donation-help.png" width={508} height={223} className="object-cover w-full"></Image>
-              <p>Sua doação nos ajuda a fornecer cuidados veterinários e amor para deixar cada patinha feliz.</p>
-              <button className="p-4 rounded-3xl border bg-white font-bold hover:cursor-pointer hover:bg-gray-300 transition-colors duration-300">Quero doar</button>
+          <div className="grid md:grid-cols-2 gap-3">
+            <div  className="flex flex-col gap-5 justify-between my-5">
+            <div className="p-5 md:p-0 lg:p-0">
+                <Image src="/assets/donation-help.png" width={508} height={223} className="object-cover w-full hidden lg:block"></Image>
+                <Image src="/assets/donation-help-mb.png" width={508} height={223} className="object-cover w-full block lg:hidden"></Image>
+              </div>
+                <p>Sua doação nos ajuda a fornecer cuidados veterinários e amor para deixar cada patinha feliz.</p>
+                <button className="p-4 rounded-3xl border bg-white font-bold hover:cursor-pointer hover:bg-gray-300 transition-colors duration-300 w-full lg:w-fit">Quero doar</button>
             </div>
-          <div className="flex flex-col gap-5 justify-between">
-            <Image src="/assets/volunteer-help.png" width={508} height={223} className="object-cover w-full"></Image>
+          <div className="flex flex-col gap-5 justify-between my-5">
+          <div className="p-5 md:p-0 lg:p-0">
+            <Image src="/assets/volunteer-help.png" width={508} height={223} className="object-cover w-full hidden lg:block"></Image>
+            <Image src="/assets/volunteer-help-mb.png" width={508} height={223} className="object-cover w-full block lg:hidden"></Image>
+          </div>
             <p>Junte-se a nós, doe seu tempo e amor e faça parte dessa missão.</p>
-            <button className="p-4 rounded-3xl border bg-white font-bold hover:cursor-pointer hover:bg-gray-300 transition-colors duration-300">Quero ser voluntário</button>
+            <button className="p-4 rounded-3xl border bg-white font-bold hover:cursor-pointer hover:bg-gray-300 transition-colors duration-300 w-full lg:w-fit">Quero ser voluntário</button>
           </div>
         
           <div className="flex flex-col gap-5 justify-between">
-            <Image src="/assets/buy-help.png" width={508} height={223} className="object-cover w-full"></Image>
+            <div className="p-5 md:p-0 lg:p-0">
+              <Image src="/assets/buy-help.png" width={508} height={223} className="object-cover w-full hidden lg:block "></Image>
+              <Image src="/assets/buy-help-mb.png" width={508} height={223} className="object-cover w-full block lg:hidden"></Image>
+            </div>
             <p><span className="font-black">Compre e Ajude!</span> Cada compra no nosso bazar apoia os animais resgatados.</p>
-            <button className="p-4 rounded-3xl border bg-white font-bold hover:cursor-pointer hover:bg-gray-300 transition-colors duration-300">Ir para o bazar</button>
+            <button className="p-4 rounded-3xl border bg-white font-bold hover:cursor-pointer hover:bg-gray-300 transition-colors duration-300 w-full lg:w-fit">Ir para o bazar</button>
           </div>
-          <div className="p-10">
+          <div className="p-10 hidden md:flex lg:flex items-center justify-between">
             <Image src="/assets/donation-card.png" width={508} height={223} className="object-cover"></Image>
           </div>
           </div>
@@ -81,7 +92,7 @@ export default function Home() {
         <div className="bg-[#FCFFF5] p-4 my-10 rounded-2xl w-full">
               <h2 className="text-3xl font-bold text-left mb-8">Faça uma doação</h2>
               <p>Cada animal tem uma necessidade diferente, e você pode ajudar da forma que quiser! Escolha um animal e veja sua lista de necessidades. Doe ração, medicamentos, itens de higiene ou contribua financeiramente. Juntos, fazemos a diferença!</p>
-
+              <p className="text-[#2B9EED] font-semibold hover:cursor-pointer text-end">Ver todos</p>
               <div className="md:flex grid grid-cols-2 gap-5 my-3">
     
               <div>
@@ -103,7 +114,6 @@ export default function Home() {
                 <Image src="/assets/max.png" width={200} height={200}></Image>
                 <p className="font-bold">Milo</p>
               </div>
-              <p className="text-[#2B9EED] font-semibold hover:cursor-pointer">Ver todos</p>
             </div>
             </div>
 
