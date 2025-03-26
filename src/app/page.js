@@ -15,7 +15,7 @@ export default function Home() {
             <div className="text-white px-4 flex flex-col justify-center items-center">
               <h1 className="md:text-[48px] sm:text-[32px] text-[24px] font-bold text-center">Nos ajude a salvar mais animais</h1>
               <h2 className="md:text-[24px] sm:text-[18px] text-[16px] text-center mt-4">Com sua doação, podemos continuar oferecendo abrigo, alimento e tratamento veterinário.</h2>
-               <button className="bg-[#2B9EED] p-3 rounded-3xl w-[125px] hover:cursor-pointer">
+               <button className="bg-[#2B9EED] p-3 rounded-3xl w-[125px] hover:cursor-pointer hover:bg-[#1a8cd6] transition-colors duration-300">
                   Doar
                </button>
             </div>
@@ -23,7 +23,7 @@ export default function Home() {
         </div>
       </div>
      
-      <main className="container mx-auto lg:px-64 text-black">
+      <main className="container mx-auto lg:px-64 px-4 text-black">
           <h2 className="text-3xl font-bold text-left mt-12 mb-8">Quem somos</h2>
         <div className=" gap-4 justify-center md:flex">
             <div className="hidden md:flex lg:flex">
@@ -59,18 +59,18 @@ export default function Home() {
             <div  className="flex flex-col gap-5 justify-between">
               <Image src="/assets/donation-help.png" width={508} height={223} className="object-cover w-full"></Image>
               <p>Sua doação nos ajuda a fornecer cuidados veterinários e amor para deixar cada patinha feliz.</p>
-              <button className="p-4 rounded-3xl border bg-white font-bold">Quero doar</button>
+              <button className="p-4 rounded-3xl border bg-white font-bold hover:cursor-pointer hover:bg-gray-300 transition-colors duration-300">Quero doar</button>
             </div>
           <div className="flex flex-col gap-5 justify-between">
             <Image src="/assets/volunteer-help.png" width={508} height={223} className="object-cover w-full"></Image>
             <p>Junte-se a nós, doe seu tempo e amor e faça parte dessa missão.</p>
-            <button className="p-4 rounded-3xl border bg-white font-bold">Quero doar</button>
+            <button className="p-4 rounded-3xl border bg-white font-bold hover:cursor-pointer hover:bg-gray-300 transition-colors duration-300">Quero ser voluntário</button>
           </div>
         
           <div className="flex flex-col gap-5 justify-between">
             <Image src="/assets/buy-help.png" width={508} height={223} className="object-cover w-full"></Image>
             <p><span className="font-black">Compre e Ajude!</span> Cada compra no nosso bazar apoia os animais resgatados.</p>
-            <button className="p-4 rounded-3xl border bg-white font-bold">Quero doar</button>
+            <button className="p-4 rounded-3xl border bg-white font-bold hover:cursor-pointer hover:bg-gray-300 transition-colors duration-300">Ir para o bazar</button>
           </div>
           <div className="p-10">
             <Image src="/assets/donation-card.png" width={508} height={223} className="object-cover"></Image>
@@ -78,11 +78,11 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="bg-[#FCFFF5] p-4 my-10 rounded-2xl">
+        <div className="bg-[#FCFFF5] p-4 my-10 rounded-2xl w-full">
               <h2 className="text-3xl font-bold text-left mb-8">Faça uma doação</h2>
               <p>Cada animal tem uma necessidade diferente, e você pode ajudar da forma que quiser! Escolha um animal e veja sua lista de necessidades. Doe ração, medicamentos, itens de higiene ou contribua financeiramente. Juntos, fazemos a diferença!</p>
 
-            <div className="flex gap-5 my-3">
+              <div className="md:flex grid grid-cols-2 gap-5 my-3">
     
               <div>
                 <Image src="/assets/milo.png" width={200} height={200}></Image>
@@ -105,11 +105,15 @@ export default function Home() {
               </div>
               <p className="text-[#2B9EED] font-semibold hover:cursor-pointer">Ver todos</p>
             </div>
+            </div>
+
+            <div className="bg-[#FCFFF5] p-4 my-10 rounded-2xl w-full">
 
             <h2 className="text-3xl font-bold text-left mb-8">Adote um animalzinho</h2>
               <p>Cada doação salva duas vidas: a do animal que ganha um lar e a do próximo que podemos regatar. Conheça nossos resgatados e encontre um novo companheiro.</p>
 
-            <div className="flex gap-5 my-3">
+              <p className="text-[#2B9EED] font-semibold hover:cursor-pointer text-end">Ver todos</p>
+            <div className="md:flex grid grid-cols-2 gap-5 my-3">
 
               <div>
                 <Image src="/assets/milo2.png" width={200} height={200}></Image>
@@ -146,12 +150,10 @@ export default function Home() {
                   <p>• macho</p>
                 </div>
               </div>
-              <p className="text-[#2B9EED] font-semibold hover:cursor-pointer">Ver todos</p>
             </div>
-
-            </div>
-      </main>
+    </div>
       <Map />
+      </main>
       <Footer />
     </div>
   );
