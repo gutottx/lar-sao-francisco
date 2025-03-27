@@ -17,9 +17,9 @@ function Footer() {
                 <span>Instagram</span>
             </div>
             
-            <div className="flex items-center w-full">
+            <div className="flex items-center gap-10">
                 <Image src={ico} width={70} height={70} className="hidden md:block lg:block" />
-                 <div className="flex text-nowrap w-full items-center justify-center">
+                 <div className="flex text-nowrap  items-center justify-center">
                     <Icon icon="ic:baseline-copyright" height={24}/>
                     <p className="text-[14px] lg:text[16px] pl-1">2025 | Grupo DRP05-PJI110-001GRUPO-014 | Univesp</p>
                  </div>
