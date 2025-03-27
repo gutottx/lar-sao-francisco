@@ -1,6 +1,4 @@
 import Image from "next/image";
-import Footer from "./components/Footer";
-import Navbar from "./components/Navbar";
 import banner from "/public/assets/hero-section.png";
 import bannermb from "/public/assets/hero-section-mb.png";
 import Map from "./components/Map";
@@ -8,7 +6,6 @@ import Map from "./components/Map";
 export default function Home() {
   return (
     <div>
-      <Navbar />
       <div className="w-full">
         <div className="relative">
           <Image src={banner} alt="Logo do Lar São Francisco" className="w-full h-full object-cover hidden md:block lg:block"/>
@@ -164,7 +161,6 @@ export default function Home() {
     </div>
       <Map />
       </main>
-      <Footer />
     </div>
   );
 }

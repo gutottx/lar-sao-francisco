@@ -1,10 +1,22 @@
+import { Icon } from "@iconify/react";
+import Image from "next/image";
+import ico3 from "/public/assets/about-dog.png";
+
+
 function About() {
     return ( 
         <>
            <div className="text-black w-full justify-center my-3 px-20">
-          <h2 className="font-bold text-3xl my-3">Nossa história</h2>
+          <h2 className="font-bold text-3xl my-3">Sobre Nós </h2>
+          
+              <h2 className="font-bold text-3xl my-3">Nossa missão:</h2>
+           <div className="flex gap-10 my-10">
+              <Image src={ico3}  className="hidden md:block lg:block" alt="Imagem de um cachorro." />
+              <p>Na [Nome da ONG], acreditamos que todo animal merece amor, cuidado e um lar seguro. Desde nossa fundação, temos trabalhado incansavelmente para resgatar, reabilitar e encontrar famílias amorosas para cães e gatos abandonados ou em situação de vulnerabilidade.</p>
+            </div>
+
           <div className="flex flex-col gap-4 text-[18px]">
-            <p>Tudo começou com um simples gesto de compaixão. Quando <p className="inline font-bold">[Nome do Fundador ou Nome da ONG]</p> resgatou seu primeiro animal em situação de vulnerabilidade, não imaginava que aquele ato daria início a uma jornada transformadora. O que começou como um pequeno esforço individual logo se tornou um movimento maior, reunindo voluntários, apoiadores e amantes dos animais que compartilham a mesma missão: salvar vidas e oferecer um futuro melhor para cães e gatos abandonados.</p>
+            <p>Tudo começou com um simples gesto de compaixão. Quando <span className="inline font-bold">[Nome do Fundador ou Nome da ONG]</span> resgatou seu primeiro animal em situação de vulnerabilidade, não imaginava que aquele ato daria início a uma jornada transformadora. O que começou como um pequeno esforço individual logo se tornou um movimento maior, reunindo voluntários, apoiadores e amantes dos animais que compartilham a mesma missão: salvar vidas e oferecer um futuro melhor para cães e gatos abandonados.</p>
             <p>Com o tempo, percebemos que só o resgate não era suficiente. Muitos animais precisavam de cuidados médicos, alimentação e, principalmente, de um lar. Foi assim que estruturamos nossa ONG, garantindo que cada animal resgatado recebesse tratamento veterinário, carinho e a chance de uma adoção responsável.</p>
             <p>Hoje, já ajudamos [X] animais, encontramos lares amorosos para [Y] cães e gatos e seguimos firmes no compromisso de transformar realidades. Nosso trabalho só é possível graças a pessoas incríveis como você, que acreditam na causa e fazem parte dessa mudança.</p>
             <p>Seja adotando, doando ou voluntariando, você também pode fazer parte dessa história. Vamos juntos?</p>
