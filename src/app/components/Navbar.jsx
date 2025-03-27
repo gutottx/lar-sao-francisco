@@ -35,7 +35,7 @@ function Navbar() {
                 
                 
                 <div className="flex justify-center items-center">
-                    <button className="hidden md:block lg:block bg-[#2B9EED] font-semibold p-2 rounded-full hover:cursor-pointer hover:bg-[#1a8cd6] transition-colors duration-300 w-[84px]">Entrar</button>
+                    <button  className=" hidden md:block lg:block bg-[#2B9EED] font-semibold p-2 rounded-full hover:cursor-pointer hover:bg-[#1a8cd6] transition-colors duration-300 w-[84px]">Entrar</button>
                 </div>
             </nav>
         </div>
