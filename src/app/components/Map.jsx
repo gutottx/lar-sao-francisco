@@ -21,18 +21,18 @@ function Map() {
 
     <div className="flex flex-col gap-5">
       <div className="flex gap-3">
-        <Icon icon="ri:map-pin-fill" height={24} />
+        <Icon icon="ri:map-pin-fill" height={24} alt="Símbolo de um alfinete." />
         <p>Av. Flávio Fazano, 293 - Piazza de Roma - Sorocaba / SP</p>
       </div>
       <div className="flex gap-3">
-        <Icon icon="mingcute:instagram-fill" height={24} />
+        <Icon icon="mingcute:instagram-fill" height={24} alt="Símbolo do Instagram" />
         <p>@larsaofranciscosorocaba</p>
       </div>
       <div className="flex gap-3">
-        <Icon icon="mage:whatsapp-filled" height={24} />
+        <Icon icon="mage:whatsapp-filled" height={24} alt="Símbolo do WhatsApp."  />
         <p>(15) 98800-1704</p>
         <div className="hidden md:hidden lg:flex">
-          <Image src="/assets/ico03.png" width={200} height={200} />
+          <Image src="/assets/ico03.png" width={200} height={200} alt="Ilustração de uma patinha de cachorro." />
         </div>
       </div>
     </div>

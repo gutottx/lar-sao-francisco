@@ -4,11 +4,11 @@ import ico04 from "/public/assets/ico04.png";
 function Contato() {
     return ( 
         <>
-        <div className="my-10 px-5 items-center flex flex-col justify-center">
+        <div className="my-10 lg:px-10 items-center flex flex-col justify-center">
             
             <div className="text-black items-center flex flex-col w-fit justify-center">
                 
-            <div className="text-black items-start flex flex-col">
+            <div className="text-black items-start px-4 flex flex-col lg:max-w-[1023px] md:max-w-[840px]">
                 <h1 className="font-bold text-[32px]">Entre em contato</h1>
                 <p>Tem alguma dúvida ou quer saber como ajudar? Fale com a gente! Estamos prontos para conectar você a um novo amigo ou orientar sobre como apoiar nossa causa.</p>
             </div>

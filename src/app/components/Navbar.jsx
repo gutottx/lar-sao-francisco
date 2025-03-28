@@ -31,11 +31,11 @@ function Navbar() {
                         {pathname !== '/' && (
                         <Link href={'/'}><li className="hover:cursor-pointer border-b-2 border-transparent hover:border-[#2B9EED]">Home</li></Link>)}
                         <Link href={'/about'}><li className="hover:cursor-pointer border-b-2 border-transparent hover:border-[#2B9EED]">Sobre</li></Link>
-                        <Link href={'/doe'}><li className="hover:cursor-pointer border-b-2 border-transparent hover:border-[#2B9EED]">Adote / Doe</li></Link>
+                        <Link href={'/adote-doe'}><li className="hover:cursor-pointer border-b-2 border-transparent hover:border-[#2B9EED]">Adote / Doe</li></Link>
                         <Link href={'/contato'}><li className="hover:cursor-pointer border-b-2 border-transparent hover:border-[#2B9EED]">Contato</li></Link>
                     </ul>
                 </div>
-                <div className="hidden md:block">
+                <div className="hidden md:flex justify-center items-center  ">
                     <button className="bg-[#2B9EED] font-semibold p-2 rounded-full hover:bg-[#1a8cd6] transition-colors duration-300 w-[84px]">Entrar</button>
                 </div>
             </nav>
@@ -47,9 +47,9 @@ function Navbar() {
 
                 <ul className="text-[#121417] text-[24px] font-light flex flex-col gap-10">
                 {pathname !== '/' && (
-                    <Link href={'/'}><li className="hover:cursor-pointer border-b-2 border-transparent hover:border-[#2B9EED]">Home</li></Link>)}
+                    <Link onClick={toggleMenu} href={'/'}><li className="hover:cursor-pointer border-b-2 border-transparent hover:border-[#2B9EED]">Home</li></Link>)}
                     <Link onClick={toggleMenu} href={'/about'}><li className="hover:cursor-pointer border-b-2 border-transparent hover:border-[#2B9EED]">Sobre</li></Link>
-                    <Link onClick={toggleMenu} href={'/adote'}><li className="hover:cursor-pointer border-b-2 border-transparent hover:border-[#2B9EED]">Adote / Doe</li></Link>
+                    <Link onClick={toggleMenu} href={'/adote-doe'}><li className="hover:cursor-pointer border-b-2 border-transparent hover:border-[#2B9EED]">Adote / Doe</li></Link>
                     <Link onClick={toggleMenu} href={'/contato'}><li className="hover:cursor-pointer border-b-2 border-transparent hover:border-[#2B9EED]">Contato</li></Link>
                 </ul>
             </div>

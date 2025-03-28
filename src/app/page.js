@@ -23,6 +23,51 @@ export default function Home() {
       </div>
      
       <main className="container mx-auto lg:px-64 px-4 text-black">
+      <div className="hidden lg:block">
+          <h2 className="text-3xl font-bold text-left mt-12 mb-8 hidden lg:block"></h2>
+        <div className=" gap-4 justify-center flex">
+           
+            
+            <div className="lg:flex hidden ">
+                    <div className="hidden md:flex lg:flex">
+                      <Image height={528} width={528} src="/assets/dog-image.png" className="object-cover rounded-2xl"></Image>
+                    </div> 
+
+            </div>
+            
+          <div className="lg:flex flex-col hidden">
+            <div className="lg:w-[531px]">
+              <div className="hidden lg:block">
+                <h2  className="text-3xl font-bold text-left items-start w-fit">Quem somos</h2>
+                <p className="my-5">Somos a  <span className="font-bold">Lar São Francisco</span>, uma organização dedicada ao resgate, cuidado e reabilitação de animais em situação de vulnerabilidade.Nosso compromisso é oferecer uma segunda chance para cães e gatos abandonados, garantindo abrigo, alimentação e cuidados veterináriosaté que encontrem um lar amoroso. <span className="font-bold">Saiba mais</span></p> 
+              </div>
+            </div>
+
+          <div className="gap-4 lg:flex lg:flex-col hidden ">
+                <div className="bg-[#F2DBD5] rounded-2xl p-1 items-center px-5 text-center col-span-2 lg:flex justify-between lg:w-[531px]">
+                  <span className="font-bold block text-[32px]">+1200</span> Animais resgatados  
+                </div>
+
+                <div className="bg-[#F2DBD5] rounded-2xl p-1 items-center px-5 text-center lg:flex justify-between lg:w-[531px]">
+                  <span className="font-bold block text-[32px]">300</span> Adoções 
+                </div>
+
+                <div className="bg-[#F2DBD5] rounded-2xl p-1 items-center px-5 text-center lg:flex justify-between lg:w-[531px]">
+                  <span className="font-bold block text-[32px]">300</span> Doadores
+                </div>
+
+                <div className="bg-[#F2DBD5] rounded-2xl  p-1 items-center px-5 text-center col-span-2 lg:flex justify-between lg:w-[531px]">
+                  <span className="font-bold block text-[32px]">300</span> Voluntários
+                </div>
+            </div>
+        </div>
+           
+        </div>
+
+        
+
+          </div>
+          <div className="lg:hidden">
           <h2 className="text-3xl font-bold text-left mt-12 mb-8">Quem somos</h2>
         <div className=" gap-4 justify-center md:flex">
             <div className="hidden md:flex lg:flex">
@@ -52,6 +97,7 @@ export default function Home() {
           <span className="font-bold">Saiba mais</span>
         </div>
 
+          </div> 
         <div className="bg-white p-4 my-10 rounded-2xl">
               <h2 className="text-3xl font-bold text-left mb-8">Como ajudar</h2>
           <div className="grid md:grid-cols-2 gap-3">
