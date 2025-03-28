@@ -29,8 +29,10 @@ function Map() {
         <p>@larsaofranciscosorocaba</p>
       </div>
       <div className="flex gap-3">
+        <a href="https://wa.me/5515988001704?text=Ol%C3%A1%2C%20gostaria%20de%20conhecer%20mais%20sobre%20o%20Lar%20S%C3%A3o%20Francisco!" target="_blank" rel="noopener noreferrer" className="flex gap-3">
         <Icon icon="mage:whatsapp-filled" height={24} alt="Símbolo do WhatsApp."  />
         <p>(15) 98800-1704</p>
+        </a>
         <div className="hidden md:hidden lg:flex">
           <Image src="/assets/ico03.png" width={200} height={200} alt="Ilustração de uma patinha de cachorro." />
         </div>

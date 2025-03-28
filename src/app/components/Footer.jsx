@@ -10,11 +10,19 @@ function Footer() {
             <div className="flex flex-col my-5">
                     <Image src={ico3} width={70} height={70} className="block md:hidden lg:hidden" alt="Ilustração de uma patinha de cachorro."  />
             </div>
-             <div className="flex gap-5 my-4">
-                 <Icon icon="mdi-facebook" height={24}/>
-                <span>Facebook</span>
-                 <Icon icon="mdi-instagram" height={24}/>
-                <span>Instagram</span>
+            <div className="flex gap-5">
+            <div>
+                    <a href="https://www.facebook.com/ong.lar.sao.francisco" className="flex gap-2"  target="_blank" rel="noopener noreferrer">
+                        <Icon icon="mdi-facebook" height={24}/>
+                        <span>Facebook</span>
+                    </a>
+                </div>
+                <div className="flex gap-2">
+                <a href="https://www.instagram.com/larsaofranciscosorocaba/" className="flex gap-2"   target="_blank" rel="noopener noreferrer">
+                    <Icon icon="mdi-instagram" height={24}/>
+                        <span>Instagram</span>
+                 </a>
+                </div>
             </div>
             
             <div className="flex items-center gap-10">
