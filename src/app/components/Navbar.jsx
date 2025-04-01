@@ -35,8 +35,8 @@ function Navbar() {
                         <Link href={'/contato'}><li className="hover:cursor-pointer border-b-2 border-transparent hover:border-[#2B9EED]">Contato</li></Link>
                     </ul>
                 </div>
-                <div className="hidden md:flex justify-center items-center  ">
-                    <button className="bg-[#2B9EED] font-semibold p-2 rounded-full hover:bg-[#1a8cd6] transition-colors duration-300 w-[84px]">Entrar</button>
+                <div className="hidden md:flex justify-center items-center">
+                    <Link href={'/login'}><button className="bg-[#2B9EED] hover:cursor-pointer font-semibold p-2 rounded-full hover:bg-[#1a8cd6] transition-colors duration-300 w-[84px]">Entrar</button></Link>
                 </div>
             </nav>
 
