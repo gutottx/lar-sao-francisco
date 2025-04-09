@@ -4,18 +4,19 @@ import DashboardMenu from "../components/Dashboard/DashboardMenu";
 import DashboardDonations from "../components/Dashboard/DashboardDonations";
 import DashboardAnimals from "../components/Dashboard/DashboardAnimals";
 import { useState } from "react";
+import AddAnimal from "../components/Dashboard/AddAnimal";
 
 function Dashboard() {
     const [activeComponent, setActiveComponent] = useState("dashboard");
 
-    const renderComponent = () => {
+    const renderDashboard = () => {
         switch (activeComponent) {
             case "dashboard":
                 return <DashboardMenu />;
             case "donations":
                 return <DashboardDonations />;
             case "animals":
-                return <DashboardAnimals />;
+                return <AddAnimal />;
             default:
                 return null;
         }
@@ -51,7 +52,7 @@ function Dashboard() {
                 </div>
 
                 <div className="flex flex-col flex-1">
-                    {renderComponent()}
+                    {renderDashboard()}
                     <div className="flex justify-end lg:hidden">
                         <button className="bg-[#2B9EED] mt-4 lg:w-fit px-10 rounded-3xl p-2 box-border text-white font-semibold hover:cursor-pointer">
                             Adicionar animal
