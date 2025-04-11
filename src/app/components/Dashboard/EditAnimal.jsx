@@ -1,7 +1,7 @@
 import { Icon } from "@iconify/react";
 import Image from "next/image";
 
-function AddAnimal() {
+function EditAnimal() {
 
 const handleDelete = () => {
 }
@@ -9,7 +9,7 @@ const handleDelete = () => {
 return ( 
 <>
 <div className="text-black">
-   <h1 className="text-[32px] font-bold mb-10">Adicionar Animal</h1>
+   <h1 className="text-[32px] font-bold mb-10">Editar Animal</h1>
    <div className="lg:max-w-[750px] lg:min-w-[750px] justify-center">
       <h2 className="text-[24px] font-bold">Dados do animal</h2>
       <div className="flex lg:flex-row gap-4 flex-col">
@@ -108,4 +108,4 @@ return (
 </>
 );
 }
-export default AddAnimal;
+export default EditAnimal;

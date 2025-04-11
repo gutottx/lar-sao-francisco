@@ -1,13 +1,15 @@
 'use client';
 import { Icon } from "@iconify/react";
+import { useState } from "react";
 import DashboardMenu from "../components/Dashboard/DashboardMenu";
 import DashboardDonations from "../components/Dashboard/DashboardDonations";
 import DashboardAnimals from "../components/Dashboard/DashboardAnimals";
-import { useState } from "react";
 import AddAnimal from "../components/Dashboard/AddAnimal";
+import EditAnimal from "../components/Dashboard/EditAnimal";
 
 function Dashboard() {
     const [activeComponent, setActiveComponent] = useState("dashboard");
+    const [animalToEdit, setAnimalToEdit] = useState(null);
 
     const renderDashboard = () => {
         switch (activeComponent) {
@@ -16,7 +18,11 @@ function Dashboard() {
             case "donations":
                 return <DashboardDonations />;
             case "animals":
+                return <DashboardAnimals setActiveComponent={setActiveComponent} />;
+            case "addanimals":
                 return <AddAnimal />;
+            case "editanimal":
+                return <EditAnimal animal={animalToEdit}  />;
             default:
                 return null;
         }
@@ -24,7 +30,7 @@ function Dashboard() {
 
     return (
         <>
-            <div className="text-black lg:p-10 p-4 gap-10 flex flex-col lg:flex-row lg:w-fit w-full">
+            <div className="text-black lg:p-10 p-4 lg:gap-10 flex flex-col lg:flex-row lg:w-fit w-full">
                 <div className="flex w-full lg:w-fit lg:flex-col lg:justify-normal justify-center gap-4">
                     <div 
                         onClick={() => setActiveComponent("dashboard")}
@@ -49,15 +55,21 @@ function Dashboard() {
                         <Icon icon="dashicons:pets" height={24} />
                         <p>Animais</p>
                     </div>
-                </div>
-
-                <div className="flex flex-col flex-1">
-                    {renderDashboard()}
-                    <div className="flex justify-end lg:hidden">
-                        <button className="bg-[#2B9EED] mt-4 lg:w-fit px-10 rounded-3xl p-2 box-border text-white font-semibold hover:cursor-pointer">
+                    <div className="hidden lg:flex md:flex">
+                        <button onClick={() => setActiveComponent("addanimals")}   className="bg-[#2B9EED] mt-4 lg:w-fit px-10 rounded-3xl p-2 box-border text-white font-semibold hover:cursor-pointer">
                             Adicionar animal
                         </button>
                     </div>
+                </div>
+
+                <div className="flex flex-col">
+                <div className="flex lg:hidden md:hidden justify-end my-3">
+                        <button onClick={() => setActiveComponent("addanimals")} className="bg-[#2B9EED] mt-4 lg:w-fit px-10 rounded-3xl p-2 box-border text-white font-semibold hover:cursor-pointer">
+                            Adicionar animal
+                        </button>
+                    </div>
+                    {renderDashboard()}
+                    
                 </div>
             </div>
         </>
