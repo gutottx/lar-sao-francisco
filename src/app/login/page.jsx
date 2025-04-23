@@ -5,25 +5,26 @@ import { useRouter } from 'next/navigation'
 
 
 function Login( ) {
-    /* To do - Conectar a login page na API e validar acesso ao Dashboard */
     const router = useRouter()
     async function handleSubmit(event) {
         event.preventDefault()
      
         const formData = new FormData(event.currentTarget)
-        const email = formData.get('email')
+        const username = formData.get('username')
         const password = formData.get('password')
      
-        const response = await fetch('/api/auth/login', {
+        const response = await fetch('https://lar-sao-francisco.onrender.com/api/v1/auth/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password }),
+          body: JSON.stringify({ username, password }),
         })
-        /* response.status === 404" Apenas para teste do funcionamento do router */
-        if (response.ok || response.status === 404) {
-          router.push('/dashboard')
+        
+        if (response.ok) {
+          const data = await response.json();
+          localStorage.setItem('token', data.access_token); 
+          router.push('/dashboard');
         } else {
-            console.error('Login failed')
+          console.error('Login failed');
         }
       }
 
@@ -34,15 +35,15 @@ function Login( ) {
                   <form onSubmit={handleSubmit} className="flex flex-col gap-2 p-5 lg:w-[400px] md:w-[596px] w-full  order-2">
                       <h1 className="text-black text-[32px] font-bold mb-10">Faça seu login</h1>
                       <label htmlFor="" className="font-medium">Usuário:</label>
-                      <input type="text" placeholder="Usuário" className="bg-white p-3 rounded-2xl" required />
+                      <input type="text" name="username" placeholder="Usuário" className="bg-white p-3 rounded-2xl" required />
                       <label htmlFor="" className="font-medium">Senha</label>
-                      <input type="password" placeholder="Digite sua senha" className="bg-white p-3 rounded-2xl"name="" id="" required/>
+                      <input type="password" name="password" placeholder="Digite sua senha" className="bg-white p-3 rounded-2xl" id="" required/>
                       <button type="submit" className="bg-[#2B9EED] mt-4 w-fit px-10 rounded-3xl p-2 text-white font-semibold hover:cursor-pointer">Fazer Login</button>
                   </form>
                   <div className="order-3 justify-center flex my-5">
                       <Image src={ico04}></Image>
                   </div>
-              </div>
+               </div>
             </> );
 }
 

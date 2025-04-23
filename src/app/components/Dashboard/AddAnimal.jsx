@@ -6,6 +6,11 @@ function AddAnimal() {
 const handleDelete = () => {
 }
 
+const handleAddAnimal = () => {
+   
+}
+
+
 return ( 
 <>
 <div className="text-black">
@@ -103,7 +108,7 @@ return (
       </div>
    </div>
    <button className="text-[#2B9EED] w-fit mt-5 rounded-2xl bg-transparent border flex gap-2 items-center px-4 p-2 cursor-pointer">Adicionar Item</button>
-   <button className="text-white mt-10 rounded-2xl bg-[#2B9EED] justify-center text-center border flex gap-2 items-center px-5 w-[200px] p-2 cursor-pointer">Cadastrar Animal</button>
+   <button onClick={handleAddAnimal} className="text-white mt-10 rounded-2xl bg-[#2B9EED] justify-center text-center border flex gap-2 items-center px-5 w-[200px] p-2 cursor-pointer">Cadastrar Animal</button>
 </div>
 </>
 );

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import milo3 from "/public/assets/milo3.png";
+import DonateModal from "../DonateModal";
 function DashboardDonations() {
 
     const [donateModal, setDonateModal] = useState(false);

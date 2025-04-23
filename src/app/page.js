@@ -1,9 +1,13 @@
+"use client"
 import Image from "next/image";
 import banner from "/public/assets/hero-section.png";
 import bannermb from "/public/assets/hero-section-mb.png";
 import Map from "./components/Map";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
+
   return (
     <div>
       <div className="w-full">
@@ -107,7 +111,7 @@ export default function Home() {
                 <Image src="/assets/donation-help-mb.png" width={508} height={223} className="object-cover w-full block lg:hidden"></Image>
               </div>
                 <p>Sua doação nos ajuda a fornecer cuidados veterinários e amor para deixar cada patinha feliz.</p>
-                <button className="p-4 rounded-3xl border bg-white font-bold hover:cursor-pointer hover:bg-gray-300 transition-colors duration-300 w-full lg:w-fit">Quero doar</button>
+                <button   onClick={() => router.push("/adote-doe")} className="p-4 rounded-3xl border bg-white font-bold hover:cursor-pointer hover:bg-gray-300 transition-colors duration-300 w-full lg:w-fit">Quero doar</button>
             </div>
           <div className="flex flex-col gap-5 justify-between my-5">
           <div className="p-5 md:p-0 lg:p-0">
@@ -115,7 +119,7 @@ export default function Home() {
             <Image src="/assets/volunteer-help-mb.png" width={508} height={223} className="object-cover w-full block lg:hidden"></Image>
           </div>
             <p>Junte-se a nós, doe seu tempo e amor e faça parte dessa missão.</p>
-            <button className="p-4 rounded-3xl border bg-white font-bold hover:cursor-pointer hover:bg-gray-300 transition-colors duration-300 w-full lg:w-fit">Quero ser voluntário</button>
+            <button onClick={() => router.push("/contato")} className="p-4 rounded-3xl border bg-white font-bold hover:cursor-pointer hover:bg-gray-300 transition-colors duration-300 w-full lg:w-fit">Quero ser voluntário</button>
           </div>
         
           <div className="flex flex-col gap-5 justify-between">

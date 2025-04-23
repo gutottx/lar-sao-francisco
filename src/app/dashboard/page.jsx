@@ -1,6 +1,7 @@
 'use client';
 import { Icon } from "@iconify/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import DashboardMenu from "../components/Dashboard/DashboardMenu";
 import DashboardDonations from "../components/Dashboard/DashboardDonations";
 import DashboardAnimals from "../components/Dashboard/DashboardAnimals";
@@ -8,8 +9,27 @@ import AddAnimal from "../components/Dashboard/AddAnimal";
 import EditAnimal from "../components/Dashboard/EditAnimal";
 
 function Dashboard() {
+    const router = useRouter();
     const [activeComponent, setActiveComponent] = useState("dashboard");
     const [animalToEdit, setAnimalToEdit] = useState(null);
+    const [isAuthorized, setIsAuthorized] = useState(false);
+    const [authChecked, setAuthChecked] = useState(false); // Controle da verificação de auth
+
+
+    
+   
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            setTimeout(() => {
+                router.push('/login');
+            }, 3000); // redireciona após 3 segundos
+        } else {
+            setIsAuthorized(true);
+        }
+        setAuthChecked(true); // Marca que já verificou
+    }, []);
+
 
     const renderDashboard = () => {
         switch (activeComponent) {
@@ -27,6 +47,19 @@ function Dashboard() {
                 return null;
         }
     };
+
+    if (!isAuthorized && authChecked) {
+        return (
+            <div className="flex items-center justify-center h-screen w-full bg-white">
+                <div className="bg-[#2B9EED] text-white p-10 rounded-xl text-center shadow-xl">
+                    <h1 className="text-2xl font-bold mb-4">Você não está autenticado</h1>
+                    <p>Redirecionando para o login em [3s].</p>
+                </div>
+            </div>
+        );
+    }
+
+    if (!authChecked) return null;
 
     return (
         <>
