@@ -41,7 +41,7 @@ function Animal({ id }) {
   return (
     <div className="text-black flex lg:flex-row flex-col gap-10 p-10 w-full">
       <div className="max-w-[300px] py-5">
-        <Image src={animal.images[0] || "https://placehold.co/258"} unoptimized width={200} height={300} className="max-w-[300px] rounded-3xl" alt="Imagem de um cachorro." />
+        <Image alt={animal.name} src={animal.images[0] || "https://placehold.co/258"} unoptimized width={200} height={300} className="max-w-[300px] rounded-3xl" />
         <div className="flex gap-3 items-center mt-3">
           <h1 className="text-[24px] font-bold">{animal.name}</h1>
           <p className="capitalize">{animal.gender}</p>
