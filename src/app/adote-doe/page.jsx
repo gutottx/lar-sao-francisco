@@ -53,7 +53,7 @@ function AdoteDoe() {
             <p className="text-center md:text-start lg:text-start mt-2">Cada animal tem uma história e uma necessidade. Você pode ajudá-los com amor, seja adotando ou doando.</p>
           </div>
           <div className="hidden lg:block">
-            <Image src="/assets/ico03.png" className="hidden lg:flex top-30 right-40 absolute" width={200} height={258} />
+            <Image alt='icon' src="/assets/ico03.png" className="hidden lg:flex top-30 right-40 absolute" width={200} height={258} />
           </div>
         </div>
 

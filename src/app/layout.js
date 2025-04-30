@@ -2,7 +2,7 @@ import "./globals.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { Public_Sans } from 'next/font/google';
-
+import { Providers } from "./providers";
 
 export const metadata = {
   title: "Lar São Francisco",
@@ -11,18 +11,17 @@ export const metadata = {
 
 const publicSans = Public_Sans({ subsets: ['latin'], weight: ['200','300', '400', '700'] });
 
-
-
-
 export default function RootLayout({ children }) {
   return (
     <html lang="pt-BR">
       <body>
-        <Navbar />
-        <div className={publicSans.className}>
-           {children}
-          </div>
-        <Footer />
+        <Providers>
+          <Navbar />
+          <div className={publicSans.className}>
+            {children}
+            </div>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );
