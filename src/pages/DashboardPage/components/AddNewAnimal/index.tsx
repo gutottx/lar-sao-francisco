@@ -1,5 +1,7 @@
 import { Trash2, Upload } from "lucide-react";
 import { useState } from "react";
+import { useCreateAnimal } from "../../../../hooks/useCreateAnimal";
+
 
 interface Animal {
   name: string;
@@ -15,7 +17,7 @@ interface Animal {
 interface Image {
   id: string;
   url: string;
-  file?: File; 
+  file?: File;
 }
 
 interface Item {
@@ -23,7 +25,6 @@ interface Item {
   image: string;
   name: string;
   price: number;
-  file?: File; 
 }
 
 export function AddNewAnimal() {
@@ -43,6 +44,52 @@ export function AddNewAnimal() {
   const [newItem, setNewItem] = useState<Item>({ id: "", image: "", name: "", price: 0 });
   const [errors, setErrors] = useState<string[]>([]);
 
+  const validateForm = (): string[] => {
+    const newErrors: string[] = [];
+    if (!animal.name) newErrors.push("Nome do animal é obrigatório.");
+    if (!animal.birthDate) newErrors.push("Data de nascimento é obrigatória.");
+    if (!animal.personality) newErrors.push("Personalidade é obrigatória.");
+    if (!animal.size) newErrors.push("Porte é obrigatório.");
+    if (!animal.about) newErrors.push("História é obrigatória.");
+    return newErrors;
+  };
+
+  const { mutate: createAnimal, isPending } = useCreateAnimal({
+    animal,
+    images,
+    items,
+    validateForm,
+  });
+
+  const handleSubmit = () => {
+    setErrors([]); // Limpar erros anteriores
+    createAnimal(undefined, {
+      onSuccess: () => {
+        // Resetar formulário
+        setAnimal({
+          name: "",
+          size: "",
+          personality: "",
+          birthDate: "",
+          vaccinated: false,
+          neutered: false,
+          availableForAdoption: false,
+          about: "",
+        });
+        setImages([]);
+        setItems([]);
+        setNewItem({ id: "", image: "", name: "", price: 0 });
+        setErrors([]);
+        // Exibir mensagem de sucesso (pode ser substituído por react-toastify)
+        alert('Animal cadastrado com sucesso!');
+      },
+      onError: (error) => {
+        const errorMessage = error.message || 'Erro ao cadastrar o animal.';
+        setErrors([errorMessage]);
+      },
+    });
+  };
+
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
@@ -60,7 +107,7 @@ export function AddNewAnimal() {
       const newImages = Array.from(files).map((file) => ({
         id: crypto.randomUUID(),
         url: URL.createObjectURL(file),
-        file, // Armazena o arquivo para futura integração
+        file,
       }));
       setImages((prev) => [...prev, ...newImages].slice(0, 4));
     }
@@ -75,73 +122,12 @@ export function AddNewAnimal() {
       setItems((prev) => [...prev, { ...newItem, id: crypto.randomUUID() }]);
       setNewItem({ id: "", image: "", name: "", price: 0 });
     } else {
-      setErrors(["Preencha todos os campos do item (nome, preço e imagem)."]);
+      setErrors(["Preencha todos os campos do item (nome, preço e URL da imagem)."]);
     }
   };
 
   const handleRemoveItem = (id: string) => {
     setItems((prev) => prev.filter((item) => item.id !== id));
-  };
-
-  const validateForm = (): string[] => {
-    const newErrors: string[] = [];
-    if (!animal.name) newErrors.push("Nome do animal é obrigatório.");
-    if (!animal.birthDate) newErrors.push("Data de nascimento é obrigatória.");
-    if (!animal.personality) newErrors.push("Personalidade é obrigatória.");
-    if (!animal.size) newErrors.push("Porte é obrigatório.");
-    if (!animal.about) newErrors.push("História é obrigatória.");
-    return newErrors;
-  };
-
-  const handleSubmit = () => {
-    const formErrors = validateForm();
-    if (formErrors.length > 0) {
-      setErrors(formErrors);
-      return;
-    }
-
-    // Preparar payload compatível com CreateAnimalDto
-    const createAnimalDto = {
-      name: animal.name,
-      birthDate: animal.birthDate,
-      personality: animal.personality,
-      size: animal.size,
-      vaccinated: animal.vaccinated,
-      neutered: animal.neutered,
-      availableForAdoption: animal.availableForAdoption,
-      about: animal.about,
-      needsList: items.map((item) => ({
-        image: item.image,
-        name: item.name,
-        price: item.price,
-      })),
-    };
-
-    // Mockar URLs de imagens do animal e itens
-    const imageUrls = images.map((img) => img.url);
-    const itemImageUrls = items.map((item) => item.image);
-
-    console.log("Payload para cadastro:", {
-      createAnimalDto,
-      images: imageUrls,
-      itemImages: itemImageUrls,
-    });
-
-    // Resetar formulário
-    setAnimal({
-      name: "",
-      size: "",
-      personality: "",
-      birthDate: "",
-      vaccinated: false,
-      neutered: false,
-      availableForAdoption: false,
-      about: "",
-    });
-    setImages([]);
-    setItems([]);
-    setNewItem({ id: "", image: "", name: "", price: 0 });
-    setErrors([]);
   };
 
   return (
@@ -170,6 +156,7 @@ export function AddNewAnimal() {
                 value={animal.name}
                 onChange={handleInputChange}
                 placeholder="Digite o nome do animal"
+                disabled={isPending}
               />
             </div>
 
@@ -180,6 +167,7 @@ export function AddNewAnimal() {
                 name="size"
                 value={animal.size}
                 onChange={handleInputChange}
+                disabled={isPending}
               >
                 <option value="" disabled>
                   Selecione
@@ -201,6 +189,7 @@ export function AddNewAnimal() {
                 value={animal.personality}
                 onChange={handleInputChange}
                 placeholder="Ex: Brincalhão"
+                disabled={isPending}
               />
             </div>
             <div className="w-full">
@@ -211,6 +200,7 @@ export function AddNewAnimal() {
                 name="birthDate"
                 value={animal.birthDate}
                 onChange={handleInputChange}
+                disabled={isPending}
               />
             </div>
           </div>
@@ -221,6 +211,7 @@ export function AddNewAnimal() {
                 type="checkbox"
                 checked={animal.vaccinated}
                 onChange={() => handleCheckboxChange("vaccinated")}
+                disabled={isPending}
               />
               Vacinado
             </label>
@@ -230,6 +221,7 @@ export function AddNewAnimal() {
                 type="checkbox"
                 checked={animal.neutered}
                 onChange={() => handleCheckboxChange("neutered")}
+                disabled={isPending}
               />
               Castrado
             </label>
@@ -239,6 +231,7 @@ export function AddNewAnimal() {
                 type="checkbox"
                 checked={animal.availableForAdoption}
                 onChange={() => handleCheckboxChange("availableForAdoption")}
+                disabled={isPending}
               />
               Permitir adoção
             </label>
@@ -256,6 +249,7 @@ export function AddNewAnimal() {
               onChange={handleInputChange}
               placeholder="Conte a história do animal"
               rows={5}
+              disabled={isPending}
             />
           </div>
         </div>
@@ -277,6 +271,7 @@ export function AddNewAnimal() {
                 <button
                   className="absolute top-0 right-0 p-1 text-red-500 hover:text-black"
                   onClick={() => handleRemoveImage(image.id)}
+                  disabled={isPending}
                 >
                   <Trash2 size={25} />
                 </button>
@@ -292,6 +287,7 @@ export function AddNewAnimal() {
               accept="image/*"
               multiple
               onChange={handleAddImage}
+              disabled={isPending}
             />
           </label>
         </div>
@@ -319,6 +315,7 @@ export function AddNewAnimal() {
                 <button
                   className="text-red-500 hover:text-black mt-2"
                   onClick={() => handleRemoveItem(item.id)}
+                  disabled={isPending}
                 >
                   <Trash2 size={25} />
                 </button>
@@ -332,7 +329,8 @@ export function AddNewAnimal() {
               className="rounded-xl p-3 bg-white w-full"
               value={newItem.image}
               onChange={(e) => setNewItem((prev) => ({ ...prev, image: e.target.value }))}
-              placeholder="https://linkdaimagem.com.br"
+              placeholder="https://exemplo.com/imagem.jpg"
+              disabled={isPending}
             />
           </div>
           <div className="flex gap-4 lg:flex-row flex-col">
@@ -344,6 +342,7 @@ export function AddNewAnimal() {
                 value={newItem.name}
                 onChange={(e) => setNewItem((prev) => ({ ...prev, name: e.target.value }))}
                 placeholder="Exemplo: Coleira"
+                disabled={isPending}
               />
             </div>
             <div className="w-full flex flex-col">
@@ -356,12 +355,14 @@ export function AddNewAnimal() {
                   setNewItem((prev) => ({ ...prev, price: parseFloat(e.target.value) || 0 }))
                 }
                 placeholder="10"
+                disabled={isPending}
               />
             </div>
           </div>
           <button
             className="text-[#2B9EED] w-fit mt-5 rounded-2xl bg-transparent border border-[#2B9EED] hover:bg-blue-100 flex gap-2 items-center px-4 p-2 cursor-pointer"
             onClick={handleAddItem}
+            disabled={isPending}
           >
             Adicionar Item
           </button>
@@ -369,10 +370,11 @@ export function AddNewAnimal() {
 
         {/* ----- Cadastrar Animal ----- */}
         <button
-          className="text-white my-10 rounded-2xl bg-[#2B9EED] justify-center text-center border flex gap-2 items-center px-5 w-[200px] p-2 cursor-pointer"
+          className="text-white my-10 rounded-2xl bg-[#2B9EED] justify-center text-center border flex gap-2 items-center px-5 w-[200px] p-2 cursor-pointer disabled:opacity-50"
           onClick={handleSubmit}
+          disabled={isPending}
         >
-          Cadastrar animal
+          {isPending ? 'Cadastrando...' : 'Cadastrar animal'}
         </button>
       </div>
     </div>
