@@ -24,7 +24,7 @@ export function MakeDonationSection() {
         <Link className="text-blue-700 font-bold text-right" to='/animais'>Ver todos</Link>
         <div className="flex gap-3.5 flex-wrap">
         {animals?.slice(0,4).map(animal => (
-            <div key={animal._id} className="flex flex-col gap-1">
+            <Link to={`animais/${animal._id}`} key={animal._id} className="flex flex-col gap-1">
               {!animal.images[0] && (
                 <PawPrint className="w-[154px] md:w-[134px] lg:w-[200px] h-[154px] md:h-[134px] lg:h-[200px] text-gray-200 rounded-2xl"/>
               )}
@@ -36,7 +36,7 @@ export function MakeDonationSection() {
                 />
               )}
               <span className="font-semibold">{animal.name}</span>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

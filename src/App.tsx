@@ -4,6 +4,7 @@ import { HomePage } from "./pages/HomePage"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Footer } from "./components/Footer";
 import { AnimalsPage } from "./pages/AnimalsPage";
+import { AnimalPage } from "./pages/AnimalPage";
 
 const queryClient = new QueryClient();
 
@@ -18,7 +19,7 @@ function App() {
             <Route path="/sobre"/>
             <Route path="/contato"/>
             <Route path="/animais" element={<AnimalsPage />}/>
-            <Route path="/animais/:id"/>
+            <Route path="/animais/:id" element={<AnimalPage />} />
 
             {/* ----- Proteger esta rota: ----- */}
             <Route path="/dashboard"/>

@@ -31,3 +31,14 @@ export function useAnimals() {
     },
   });
 }
+
+export function useAnimal(id: string) {
+  return useQuery<Animal>({
+    queryKey: ["animal", id],
+    queryFn: async () => {
+      const response = await api.get(`/animal/${id}`);
+      return response.data;
+    },
+    enabled: !!id, 
+  });
+}
