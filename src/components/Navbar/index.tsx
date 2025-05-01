@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 export function Navbar() {
+  const { isAuthenticated, logout } = useAuth();
+
   return (
     <nav className="w-full py-6 md:px-16 ">
       {/* ----- Mobile & Tablet ----- */}
@@ -14,18 +17,26 @@ export function Navbar() {
             />
           </Link>
           <div className="flex gap-2 items-center">
-
+            {isAuthenticated && (
               <Link to="/dashboard" className="font-bold text-[#2e2d2d] hover:text-[#121417]">
                 Dashboard
               </Link>
-
+            )}
+            {!isAuthenticated ? (
             <Link 
               to="/login" 
               className="bg-blue-500 text-white py-1 px-4 rounded-full hover:bg-blue-600 transition"
             >
               Entrar
             </Link>
-
+            ): (
+              <button 
+              onClick={logout}
+              className="bg-blue-500 text-white py-1 px-4 rounded-full hover:bg-blue-600 transition"
+            >
+              Sair
+            </button>
+            )}
           </div>
         </div>
         <div className="flex items-center gap-4">
@@ -53,26 +64,29 @@ export function Navbar() {
 
         {/* Botão de login */}
         <div className="flex gap-2 items-center">
+          {isAuthenticated && (
             <Link to="/dashboard" className="font-bold text-[#2e2d2d] hover:text-[#121417]">
               Dashboard
             </Link>
+          )}
 
+          {!isAuthenticated ? (
             <Link 
               to="/login" 
               className="bg-blue-500 text-white py-1 px-4 rounded-full hover:bg-blue-600 transition"
             >
               Entrar
             </Link>
-
+          ) : (
             <button 
+              onClick={logout}
               className="bg-blue-500 text-white py-1 px-4 rounded-full hover:bg-blue-600 transition"
             >
               Sair
             </button> 
-
+          )}
         </div>
       </div>
     </nav>
   );
 }
-
