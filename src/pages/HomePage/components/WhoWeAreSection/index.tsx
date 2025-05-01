@@ -12,19 +12,19 @@ export function WhoWeAreSection() {
               <img src="/dog.png" alt="imagem de cachorro" className="w-full rounded-2xl"/>
             </div>
             <div className="grid grid-cols-4 gap-4 w-full md:w-1/2">
-              <div className="py-2 rounded-2xl col-span-4 flex flex-col gap-2 items-center bg-[#F2DBD5] text-center">
+              <div className="py-2 rounded-2xl col-span-4 flex flex-col gap-2 justify-center items-center bg-[#F2DBD5] text-center">
                 <span className="font-bold text-3xl">+1200</span>
                 <span className="font-medium text-[18px]">Animais Resgatados</span>
               </div>
-              <div className="py-2 rounded-2xl col-span-2 flex flex-col gap-2 items-center bg-[#F2DBD5] text-center">
+              <div className="py-2 rounded-2xl col-span-2 flex flex-col gap-2 justify-center items-center bg-[#F2DBD5] text-center">
                 <span className="font-bold text-3xl">500</span>
                 <span className="font-medium text-[18px]">Adoções</span>
               </div>
-              <div className="py-2 rounded-2xl col-span-2 flex flex-col gap-2 items-center bg-[#F2DBD5] text-center">
+              <div className="py-2 rounded-2xl col-span-2 flex flex-col gap-2 justify-center items-center bg-[#F2DBD5] text-center">
                 <span className="font-bold text-3xl">450</span>
                 <span className="font-medium text-[18px]">Doadores</span>
               </div>
-              <div className="py-2 rounded-2xl col-span-4 flex flex-col gap-2 items-center bg-[#F2DBD5] text-center">
+              <div className="py-2 rounded-2xl col-span-4 flex flex-col gap-2 justify-center items-center bg-[#F2DBD5] text-center">
                 <span className="font-bold text-3xl">50</span>
                 <span className="font-medium text-[18px]">Voluntários</span>
               </div>

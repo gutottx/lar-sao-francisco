@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export function HeroSection () {
   return (
     <section 
-      className="relative w-full h-[300px] md:h-[400px] bg-cover bg-center" 
+      className="relative w-full h-[300px] md:h-[400px] bg-cover bg-center lg:bg-top" 
       style={{ backgroundImage: 'url("/hero.png")' }}
     >
       <div className="absolute inset-0 bg-black opacity-50"></div>
