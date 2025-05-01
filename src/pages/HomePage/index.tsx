@@ -1,6 +1,7 @@
 import { HeroSection } from "./components/HeroSection";
 import { HowToHelpSection } from "./components/HowToHelpSection";
 import { MakeDonationSection } from "./components/MakeDonationSection";
+import { WhereWeAreSection } from "./components/WhereWeAreSection";
 import { WhoWeAreSection } from "./components/WhoWeAreSection";
 
 export function HomePage() {
@@ -12,6 +13,7 @@ export function HomePage() {
         <WhoWeAreSection />
         <HowToHelpSection />
         <MakeDonationSection />
+        <WhereWeAreSection />
       </div>
     </main>
   )
