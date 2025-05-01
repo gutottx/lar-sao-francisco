@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useAnimal } from "../../hooks/useAnimals";
-import { Minus, PawPrint, Plus } from "lucide-react";
+import { CircleX, Minus, PawPrint, Plus } from "lucide-react";
 import { useState } from "react";
 
 export function DonationPage() {
@@ -10,6 +10,15 @@ export function DonationPage() {
   const [name, setName] = useState("");
   const [extraValue, setExtraValue] = useState(0);
   const [cartItems, setCartItems] = useState<{ [key: string]: number }>({});
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+  
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -154,11 +163,41 @@ export function DonationPage() {
             />
           </div>
 
-          <button className="bg-blue-500 text-white rounded-3xl py-1 px-4 hover:bg-blue-600 cursor-pointer">
+          <button 
+            className="bg-blue-500 text-white rounded-3xl py-1 px-4 hover:bg-blue-600 cursor-pointer"
+            onClick={handleOpenModal}
+          >
             Fazer doação
           </button>
         </section>      
       </div>
+
+      {/* ----- Modal ----- */}
+      {isModalOpen && (
+        <div className="fixed top-0 right-0 w-full h-screen bg-black/45 overflow-hidden">
+          <div className="p-6 bg-white w-[400px] m-auto flex flex-col items-center gap-4 justify-center rounded-2xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+            <CircleX 
+              className="hover:text-gray-700 cursor-pointer"
+              onClick={handleCloseModal}
+            />
+            <img src="/qrcode.png" alt="qrcode" />
+            
+            <div className="flex flex-col items-center">
+              <p className="text-center">1. Escaneie o QR Code com o app do seu banco ou copie a chave PIX</p>
+              <p className="text-center">2. Insira o valor: <span className="text-[18px] font-bold">R${calculateTotal().toFixed(2)}</span></p>
+              <p className="text-center">3. Confirme a transação</p>
+            </div>
+            <button 
+              className="bg-blue-500 text-white rounded-3xl py-1 px-4 hover:bg-blue-600 cursor-pointer"
+              onClick={() => {
+                handleCloseModal()
+              }}
+            >
+              Finalizar doação
+            </button>
+          </div>
+        </div>
+      )}
     </main>
   )
 }
