@@ -14,15 +14,18 @@ export function Navbar() {
             />
           </Link>
           <div className="flex gap-2 items-center">
-            <Link to="/dashboard" className="font-bold text-[#2e2d2d] hover:text-[#121417]">
-              Dashboard
-            </Link>
+
+              <Link to="/dashboard" className="font-bold text-[#2e2d2d] hover:text-[#121417]">
+                Dashboard
+              </Link>
+
             <Link 
               to="/login" 
               className="bg-blue-500 text-white py-1 px-4 rounded-full hover:bg-blue-600 transition"
             >
               Entrar
             </Link>
+
           </div>
         </div>
         <div className="flex items-center gap-4">
@@ -50,22 +53,23 @@ export function Navbar() {
 
         {/* Botão de login */}
         <div className="flex gap-2 items-center">
-          <Link to="/dashboard" className="font-bold text-[#2e2d2d] hover:text-[#121417]">
-            Dashboard
-          </Link>
+            <Link to="/dashboard" className="font-bold text-[#2e2d2d] hover:text-[#121417]">
+              Dashboard
+            </Link>
 
-          <Link 
-            to="/login" 
-            className="bg-blue-500 text-white py-1 px-4 rounded-full hover:bg-blue-600 transition"
-          >
-            Entrar
-          </Link>
+            <Link 
+              to="/login" 
+              className="bg-blue-500 text-white py-1 px-4 rounded-full hover:bg-blue-600 transition"
+            >
+              Entrar
+            </Link>
 
-          <button 
-            className="bg-blue-500 text-white py-1 px-4 rounded-full hover:bg-blue-600 transition"
-          >
-            Sair
-          </button> 
+            <button 
+              className="bg-blue-500 text-white py-1 px-4 rounded-full hover:bg-blue-600 transition"
+            >
+              Sair
+            </button> 
+
         </div>
       </div>
     </nav>

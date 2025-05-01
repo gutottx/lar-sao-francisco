@@ -6,6 +6,7 @@ import { Footer } from "./components/Footer";
 import { AnimalsPage } from "./pages/AnimalsPage";
 import { AnimalPage } from "./pages/AnimalPage";
 import { DonationPage } from "./pages/DonationPage";
+import { LoginPage } from "./pages/LoginPage";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ function App() {
             <Route path="/animais" element={<AnimalsPage />}/>
             <Route path="/animais/:id" element={<AnimalPage />} />
             <Route path="/animais/:id/donation" element={<DonationPage />} />
+            <Route path="/login" element={<LoginPage />} />
 
             {/* ----- Proteger esta rota: ----- */}
             <Route path="/dashboard"/>
