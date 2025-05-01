@@ -9,9 +9,6 @@ export function LoginPage() {
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
 
-    console.log({ username, password });
-
-
     localStorage.setItem('token', 'fake-jwt-token');
     navigate('/dashboard'); 
   };
