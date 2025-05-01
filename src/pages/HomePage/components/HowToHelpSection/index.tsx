@@ -8,7 +8,7 @@ export function HowToHelpSection() {
         {/* ----- Donation ----- */}
         <div className="w-[400px] lg:w-[420px] flex flex-col gap-4 items-center">
           <div className="rounded-3xl">
-            <div className="lg:flex-row-reverse rounded-2xl w-[240px] sm:w-[290px] lg:w-[400px] h-[240px] sm:h-[290px] lg:h-[230px] font-bold bg-[#DED7F6] flex flex-col items-center justify-between pt-2 lg:pr-2.5">
+          <div className="lg:flex-row-reverse rounded-2xl w-[240px] sm:w-[290px] lg:w-[400px] h-[260px] sm:h-[290px] lg:h-[230px] font-bold bg-[#DED7F6] flex flex-col items-center justify-between pt-2 lg:pr-2.5">
               <p className="text-[20px]">Faça uma doação</p>
               <img src="/dog-1.png" alt="Foto de cachorro" className="w-fit" />
             </div>
@@ -22,7 +22,7 @@ export function HowToHelpSection() {
         {/* ----- Volunteer ----- */}
         <div className="w-[320px] lg:w-[420px] flex flex-col gap-4 items-center">
           <div className="rounded-3xl">
-            <div className="lg:flex-row-reverse rounded-2xl w-[240px] sm:w-[290px] lg:w-[400px] h-[240px] sm:h-[290px] lg:h-[230px] font-bold bg-[#B2DECA] flex flex-col items-center justify-between pt-2 lg:pr-2.5">
+          <div className="lg:flex-row-reverse rounded-2xl w-[240px] sm:w-[290px] lg:w-[400px] h-[260px] sm:h-[290px] lg:h-[230px] font-bold bg-[#B2DECA] flex flex-col items-center justify-between pt-2 lg:pr-2.5">
               <p className="text-[20px]">Seja Voluntário</p>
               <img src="/cat.png" alt="Foto de gato" />
             </div>
@@ -52,7 +52,8 @@ export function HowToHelpSection() {
           </div>
         </div>
 
-        <div className="sm:hidden md:block w-[240px] sm:w-[290px] lg:w-[320px] h-[240px] sm:h-[290px] lg:h-[320px] pt-2 ">
+        {/* ----- Paw decoration ----- */}
+        <div className="hidden md:block w-[240px] g:w-[320px] h-[240px] lg:h-[320px] pt-2 ">
           <img src="/paw.svg" alt="Foto de fogão" />
         </div>
       </div>
