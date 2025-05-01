@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Footer } from "./components/Footer";
 import { AnimalsPage } from "./pages/AnimalsPage";
 import { AnimalPage } from "./pages/AnimalPage";
+import { DonationPage } from "./pages/DonationPage";
 
 const queryClient = new QueryClient();
 
@@ -20,6 +21,7 @@ function App() {
             <Route path="/contato"/>
             <Route path="/animais" element={<AnimalsPage />}/>
             <Route path="/animais/:id" element={<AnimalPage />} />
+            <Route path="/animais/:id/donation" element={<DonationPage />} />
 
             {/* ----- Proteger esta rota: ----- */}
             <Route path="/dashboard"/>

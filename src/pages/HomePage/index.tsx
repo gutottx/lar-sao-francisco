@@ -9,7 +9,7 @@ export function HomePage() {
     <main>
       <HeroSection />
 
-      <div className="px-6 md:px-[72px] lg:w-[1085px] m-auto mt-[38px] md:-[44px] lg:-[72px]">
+      <div className="px-6 md:px-[72px] lg:w-[1085px] m-auto mt-[38px] md:mt-[44px] lg:mt-[72px] flex flex-col gap-10 md:gap-11 lg:gap-[72px]">
         <WhoWeAreSection />
         <HowToHelpSection />
         <MakeDonationSection />

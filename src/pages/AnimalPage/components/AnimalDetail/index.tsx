@@ -55,7 +55,7 @@ export function AnimalDetail({animal}: AnimalProps) {
             href="http://" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="border border-[#121417] text-[#121417] px-5 py-2.5 rounded-2xl  font-bold"
+            className={`border border-[#121417] px-5 py-2.5 rounded-2xl font-bold ${animal.availableForAdoption ? 'text-[#121417]' : 'text-gray-400 pointer-events-none cursor-not-allowed'}`}
           >Quero Adotar</a>
           <Link 
             to='/doacao'
@@ -87,7 +87,7 @@ export function AnimalDetail({animal}: AnimalProps) {
               className="border border-[#121417] text-[#121417] px-5 py-2.5 rounded-2xl  font-bold"
             >Quero Adotar</a>
             <Link 
-              to='/doacao'
+              to={`/animais/${animal._id}/donation`}
               className="bg-[#121417] text-[#FCFFF5] px-5 py-2.5 rounded-2xl font-bold"
             >Quero Doar</Link>
           </div>
