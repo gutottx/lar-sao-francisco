@@ -1,7 +1,8 @@
 import { Trash2, Upload } from "lucide-react";
 import { useState } from "react";
+import { useUpdateAnimal } from "../../../../hooks/useUpdateAnimal";
+import { useNavigate } from 'react-router-dom';
 
-// Interfaces
 interface Animal {
   _id: string;
   name: string;
@@ -19,11 +20,12 @@ interface Animal {
 interface Image {
   id: string;
   url: string;
+  file?: File; 
 }
 
 interface Item {
   id: string;
-  _id?: string;
+  _id?: string; 
   image: string;
   name: string;
   price: number;
@@ -35,10 +37,12 @@ interface EditAnimalProps {
 }
 
 export function EditAnimal({ animal: initialAnimal, onCancel }: EditAnimalProps) {
+  const navigate = useNavigate();
   const [animal, setAnimal] = useState<Animal>({ ...initialAnimal });
   const [images, setImages] = useState<Image[]>(
     initialAnimal.images.map((url, index) => ({ id: `img-${index}`, url })) || []
   );
+
   const [items, setItems] = useState<Item[]>(
     initialAnimal.needsList.map((item, index) => ({
       id: `item-${index}`,
@@ -48,7 +52,54 @@ export function EditAnimal({ animal: initialAnimal, onCancel }: EditAnimalProps)
       price: item.price,
     })) || []
   );
+
   const [newItem, setNewItem] = useState<Item>({ id: "", image: "", name: "", price: 0 });
+  const [errors, setErrors] = useState<string[]>([]);
+
+  const validateForm = (): string[] => {
+    const newErrors: string[] = [];
+    if (!animal.name) newErrors.push("Nome do animal é obrigatório.");
+    if (!animal.birthDate) newErrors.push("Data de nascimento é obrigatória.");
+    if (!animal.personality) newErrors.push("Personalidade é obrigatória.");
+    if (!animal.size) newErrors.push("Porte é obrigatório.");
+    if (!animal.about) newErrors.push("História é obrigatória.");
+    return newErrors;
+  };
+
+  const { mutate: updateAnimal, isPending } = useUpdateAnimal({
+    animalId: animal._id,
+    animal,
+    images,
+    items,
+    validateForm,
+  });
+
+  const handleSubmit = () => {
+    setErrors([]);
+    updateAnimal(undefined, {
+      onSuccess: () => {
+        setAnimal({ ...initialAnimal });
+        setImages(initialAnimal.images.map((url, index) => ({ id: `img-${index}`, url })));
+        setItems(
+          initialAnimal.needsList.map((item, index) => ({
+            id: `item-${index}`,
+            _id: item._id,
+            image: item.image,
+            name: item.name,
+            price: item.price,
+          }))
+        );
+        setNewItem({ id: "", image: "", name: "", price: 0 });
+        setErrors([]);
+        alert('Animal atualizado com sucesso!');
+        navigate('/animais');
+      },
+      onError: (error) => {
+        const errorMessage = error.message || 'Erro ao atualizar o animal.';
+        setErrors([errorMessage]);
+      },
+    });
+  };
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -67,6 +118,7 @@ export function EditAnimal({ animal: initialAnimal, onCancel }: EditAnimalProps)
       const newImages = Array.from(files).map((file) => ({
         id: crypto.randomUUID(),
         url: URL.createObjectURL(file),
+        file,
       }));
       setImages((prev) => [...prev, ...newImages].slice(0, 4));
     }
@@ -80,6 +132,8 @@ export function EditAnimal({ animal: initialAnimal, onCancel }: EditAnimalProps)
     if (newItem.name && newItem.price && newItem.image) {
       setItems((prev) => [...prev, { ...newItem, id: crypto.randomUUID() }]);
       setNewItem({ id: "", image: "", name: "", price: 0 });
+    } else {
+      setErrors(["Preencha todos os campos do item (nome, preço e URL da imagem)."]);
     }
   };
 
@@ -87,42 +141,17 @@ export function EditAnimal({ animal: initialAnimal, onCancel }: EditAnimalProps)
     setItems((prev) => prev.filter((item) => item.id !== id));
   };
 
-  const handleSubmit = () => {
-    // Preparar payload compatível com UpdateAnimalDto
-    const updateAnimalDto = {
-      name: animal.name,
-      size: animal.size,
-      personality: animal.personality,
-      birthDate: animal.birthDate,
-      vaccinated: animal.vaccinated,
-      neutered: animal.neutered,
-      availableForAdoption: animal.availableForAdoption,
-      about: animal.about,
-      needsList: items.map((item) => ({
-        image: item.image,
-        name: item.name,
-        price: item.price,
-      })),
-    };
-
-    // Mockar URLs de imagens do animal e itens
-    const imageUrls = images.map((img) => img.url);
-    const itemImageUrls = items.map((item) => item.image);
-
-    console.log("Payload para atualização:", {
-      id: animal._id,
-      updateAnimalDto,
-      images: imageUrls,
-      itemImages: itemImageUrls,
-    });
-
-    // Volta para a lista após salvar
-    onCancel();
-  };
-
   return (
     <div className="p-4 flex flex-col gap-7 w-full md:w-[400px] lg:w-[800px]">
       <h2 className="font-bold text-2xl">Editar Animal</h2>
+
+      {errors.length > 0 && (
+        <div className="bg-red-100 text-red-700 p-3 rounded-xl">
+          {errors.map((error, index) => (
+            <p key={index}>{error}</p>
+          ))}
+        </div>
+      )}
 
       <div className="flex flex-col gap-9 items-end">
         {/* ----- Dados do animal ------ */}
@@ -138,6 +167,7 @@ export function EditAnimal({ animal: initialAnimal, onCancel }: EditAnimalProps)
                 value={animal.name}
                 onChange={handleInputChange}
                 placeholder="Digite o nome do animal"
+                disabled={isPending}
               />
             </div>
 
@@ -148,6 +178,7 @@ export function EditAnimal({ animal: initialAnimal, onCancel }: EditAnimalProps)
                 name="size"
                 value={animal.size}
                 onChange={handleInputChange}
+                disabled={isPending}
               >
                 <option value="" disabled>
                   Selecione
@@ -169,6 +200,7 @@ export function EditAnimal({ animal: initialAnimal, onCancel }: EditAnimalProps)
                 value={animal.personality}
                 onChange={handleInputChange}
                 placeholder="Ex: Brincalhão"
+                disabled={isPending}
               />
             </div>
             <div className="w-full">
@@ -179,6 +211,7 @@ export function EditAnimal({ animal: initialAnimal, onCancel }: EditAnimalProps)
                 name="birthDate"
                 value={animal.birthDate}
                 onChange={handleInputChange}
+                disabled={isPending}
               />
             </div>
           </div>
@@ -189,6 +222,7 @@ export function EditAnimal({ animal: initialAnimal, onCancel }: EditAnimalProps)
                 type="checkbox"
                 checked={animal.vaccinated}
                 onChange={() => handleCheckboxChange("vaccinated")}
+                disabled={isPending}
               />
               Vacinado
             </label>
@@ -198,6 +232,7 @@ export function EditAnimal({ animal: initialAnimal, onCancel }: EditAnimalProps)
                 type="checkbox"
                 checked={animal.neutered}
                 onChange={() => handleCheckboxChange("neutered")}
+                disabled={isPending}
               />
               Castrado
             </label>
@@ -207,6 +242,7 @@ export function EditAnimal({ animal: initialAnimal, onCancel }: EditAnimalProps)
                 type="checkbox"
                 checked={animal.availableForAdoption}
                 onChange={() => handleCheckboxChange("availableForAdoption")}
+                disabled={isPending}
               />
               Permitir adoção
             </label>
@@ -224,6 +260,7 @@ export function EditAnimal({ animal: initialAnimal, onCancel }: EditAnimalProps)
               onChange={handleInputChange}
               placeholder="Conte a história do animal"
               rows={5}
+              disabled={isPending}
             />
           </div>
         </div>
@@ -245,6 +282,7 @@ export function EditAnimal({ animal: initialAnimal, onCancel }: EditAnimalProps)
                 <button
                   className="absolute top-0 right-0 p-1 text-red-500 hover:text-black"
                   onClick={() => handleRemoveImage(image.id)}
+                  disabled={isPending}
                 >
                   <Trash2 size={25} />
                 </button>
@@ -260,6 +298,7 @@ export function EditAnimal({ animal: initialAnimal, onCancel }: EditAnimalProps)
               accept="image/*"
               multiple
               onChange={handleAddImage}
+              disabled={isPending}
             />
           </label>
         </div>
@@ -287,6 +326,7 @@ export function EditAnimal({ animal: initialAnimal, onCancel }: EditAnimalProps)
                 <button
                   className="text-red-500 hover:text-black mt-2"
                   onClick={() => handleRemoveItem(item.id)}
+                  disabled={isPending}
                 >
                   <Trash2 size={25} />
                 </button>
@@ -301,6 +341,7 @@ export function EditAnimal({ animal: initialAnimal, onCancel }: EditAnimalProps)
               value={newItem.image}
               onChange={(e) => setNewItem((prev) => ({ ...prev, image: e.target.value }))}
               placeholder="https://linkdaimagem.com.br"
+              disabled={isPending}
             />
           </div>
           <div className="flex gap-4 lg:flex-row flex-col">
@@ -311,7 +352,8 @@ export function EditAnimal({ animal: initialAnimal, onCancel }: EditAnimalProps)
                 type="text"
                 value={newItem.name}
                 onChange={(e) => setNewItem((prev) => ({ ...prev, name: e.target.value }))}
-                placeholder="Exemplo: Coleira"
+                placeholder="Exemplo: Brinquedo"
+                disabled={isPending}
               />
             </div>
             <div className="w-full flex flex-col">
@@ -324,12 +366,14 @@ export function EditAnimal({ animal: initialAnimal, onCancel }: EditAnimalProps)
                   setNewItem((prev) => ({ ...prev, price: parseFloat(e.target.value) || 0 }))
                 }
                 placeholder="10"
+                disabled={isPending}
               />
             </div>
           </div>
           <button
             className="text-[#2B9EED] w-fit mt-5 rounded-2xl bg-transparent border border-[#2B9EED] hover:bg-blue-100 flex gap-2 items-center px-4 p-2 cursor-pointer"
             onClick={handleAddItem}
+            disabled={isPending}
           >
             Adicionar Item
           </button>
@@ -340,12 +384,14 @@ export function EditAnimal({ animal: initialAnimal, onCancel }: EditAnimalProps)
           <button
             className="text-white my-10 rounded-2xl bg-[#2B9EED] justify-center text-center border flex gap-2 items-center px-5 w-[200px] p-2 cursor-pointer"
             onClick={handleSubmit}
+            disabled={isPending}
           >
-            Salvar alterações
+            {isPending ? 'Salvando...' : 'Salvar alterações'}
           </button>
           <button
             className="text-[#2B9EED] my-10 rounded-2xl bg-transparent border border-[#2B9EED] hover:bg-blue-100 flex gap-2 items-center px-5 w-[200px] p-2 cursor-pointer"
             onClick={onCancel}
+            disabled={isPending}
           >
             Cancelar
           </button>

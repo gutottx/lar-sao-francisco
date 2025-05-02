@@ -8,6 +8,7 @@ interface AnimalProps {
 }
 
 export function AnimalDetail({animal}: AnimalProps) {
+  console.log(animal.neutered)
   return (
     <section>
       {/* ----- Mobile Version */}
@@ -27,7 +28,7 @@ export function AnimalDetail({animal}: AnimalProps) {
 
         <div className="flex flex-col gap-3">
           <div className="flex items-center gap-5">
-            <span className="font-bold text-[24px]">Max</span>
+            <span className="font-bold text-[24px]">{animal.name}</span>
             <span>2 anos</span>
           </div>
           <div className="flex flex-col gap-2">
@@ -41,22 +42,30 @@ export function AnimalDetail({animal}: AnimalProps) {
             </div>
             <div className="flex items-center gap-2">
               <span className="font-bold">Vacinado</span>
-              <span>{animal.vaccinated}</span>
+              <span>{animal.vaccinated ? 'Sim' : 'Não'}</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="font-bold">Castrado</span>
-              <span>{animal.neutered}</span>
+              <span>{animal.neutered ? 'Sim' : 'Não'}</span>
             </div>
           </div>
         </div>
 
         <div className="mt-4 flex items-center gap-5">
+        {animal.availableForAdoption ? (
           <a 
-            href="http://" 
+            href={`https://wa.me/5515988001704?text=Quero%20adotar%20o%20animal%20${encodeURIComponent(animal.name)}`} 
             target="_blank" 
             rel="noopener noreferrer"
-            className={`border border-[#121417] px-5 py-2.5 rounded-2xl font-bold ${animal.availableForAdoption ? 'text-[#121417]' : 'text-gray-400 pointer-events-none cursor-not-allowed'}`}
-          >Quero Adotar</a>
+            className="border border-[#121417] px-5 py-2.5 rounded-2xl font-bold text-[#121417]"
+          >
+            Quero Adotar
+          </a>
+        ) : (
+          <span className="border border-[#121417] px-5 py-2.5 rounded-2xl font-bold text-gray-400 cursor-not-allowed">
+            Quero Adotar
+          </span>
+        )}
           <Link 
             to='/doacao'
             className="bg-[#121417] text-[#FCFFF5] px-5 py-2.5 rounded-2xl font-bold"
@@ -108,12 +117,12 @@ export function AnimalDetail({animal}: AnimalProps) {
               <span>{animal.size}</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="font-bold">Vacinado</span>
-              <span>{animal.vaccinated}</span>
+              <span className="font-bold">Vacinado:</span>
+              <span>{animal.vaccinated ? 'Sim': 'Não'}</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="font-bold">Castrado</span>
-              <span>{animal.neutered}</span>
+              <span className="font-bold">Castrado:</span>
+              <span>{animal.neutered ? 'Sim' : 'Não'}</span>
             </div>
           </div>
         </div>

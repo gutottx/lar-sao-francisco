@@ -53,7 +53,7 @@ export function LoginPage() {
         <div className="w-full flex flex-col gap-2">
           <label htmlFor="">Senha:</label>
           <input 
-            type="text"
+            type="password"
             placeholder="*********"
             className="bg-white rounded-2xl text-gray-700 py-1 px-4"
             value={password}

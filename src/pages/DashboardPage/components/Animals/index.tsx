@@ -14,7 +14,7 @@ export function Animals({onEditAnimal}: AnimalsProps) {
     <div className="w-full md:w-[400px] lg:w-[800px] p-4 flex flex-col gap-7">
       <h2 className="font-bold text-2xl">Animais Cadastrados</h2>
 
-      <div className="flex gap-2 flex-row lex-wrap">
+      <div className="flex gap-2 flex-row flex-wrap">
         {animals?.map(animal => (
           <AnimalEditCard 
             key={animal._id} 

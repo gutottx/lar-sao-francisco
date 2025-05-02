@@ -20,7 +20,7 @@ export function NeedsList({animal}: NeedsListProps) {
     <h2 className="font-bold text-[24px]">Lista de itens de {animal.name}</h2>
 
     <div className="flex flex-col lg:flex-col gap-5">
-      <div className="w-full flex flex-wrap gap-4 lg:flex">
+      <div className="w-full flex flex-wrap gap-2">
       {(!animal.needsList || animal.needsList.length === 0) ? (
         <p>Nenhuma lista cadastrada</p>
         ) : (

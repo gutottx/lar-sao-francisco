@@ -37,7 +37,7 @@ export function AnimalEditCard({animal, onEditAnimal}: AnimalEditCardProps) {
           )}
           {animal.images[0] && (
             <img 
-              src="/dog.png" 
+              src={animal.images[0]}
               alt={`Foto de ${animal.name}`} 
               className=" rounded-2xl w-[140px] h-[140px] object-fill lg:w-[200px] lg:h-[200px]"
             />

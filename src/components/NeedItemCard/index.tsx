@@ -12,11 +12,11 @@ interface MeedItemCardProps {
 export function NeedItemCard({need}: MeedItemCardProps ) {
   return (
       <div className="w-[154px] lg:w-[200px] p-1.5">
-        <div className="flex items-center">
+        <div className="flex items-center h-[154px] w-[154px]">
           <img 
             src={need.image} 
             alt={`Imagem ${need.image}`} 
-            className=" rounded-2xl h-[154px] lg:h-[200px]"
+            className="object-cover w-full h-full rounded-xl"
           />
         </div>
         <div className="flex flex-col px-2">
