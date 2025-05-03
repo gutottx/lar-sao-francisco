@@ -2,10 +2,12 @@ import { useParams } from "react-router-dom";
 import { useAnimal } from "../../hooks/useAnimals";
 import { CircleX, Minus, PawPrint, Plus } from "lucide-react";
 import { useState } from "react";
+import { useCreateDonation } from "../../hooks/useCreateDonation";
 
 export function DonationPage() {
   const { id } = useParams(); 
   const { data: animal, isLoading, error } = useAnimal(id || "");
+  const { mutate: createDonation, isPending } = useCreateDonation();
 
   const [name, setName] = useState("");
   const [extraValue, setExtraValue] = useState(0);
@@ -13,6 +15,11 @@ export function DonationPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenModal = () => {
+    const hasItems = Object.values(cartItems).some(quantity => quantity > 0);
+    if (!hasItems && extraValue <= 0) {
+      alert("Selecione pelo menos um item ou adicione um valor extra.");
+      return;
+    }
     setIsModalOpen(true);
   };
   
@@ -56,6 +63,37 @@ export function DonationPage() {
     return calculateSubtotal() + extraValue;
   };
 
+  const handleSubmitDonation = () => {
+    if (!id) {
+      alert("ID do animal não encontrado.");
+      return;
+    }
+    const donatedItems = Object.entries(cartItems)
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      .filter(([_, quantity]) => quantity > 0)
+      .map(([itemId, quantity]) => ({
+        itemId,
+        quantity,
+      }));
+
+    const donationData = {
+      donorName: name || undefined,
+      animalId: id,
+      donatedItems,
+      extraAmount: extraValue > 0 ? extraValue : undefined,
+    };
+
+    createDonation(donationData, {
+      onSuccess: () => {
+        setName("");
+        setExtraValue(0);
+        setCartItems({});
+        handleCloseModal();
+      },
+    });
+  };
+
+
   if (isLoading) return <p>Carregando animal...</p>;
   if (error || !animal) return <p>Erro ao carregar animal.</p>;
 
@@ -84,10 +122,10 @@ export function DonationPage() {
         <section className="flex flex-col gap-5 items-center md:border-r md:pr-11">
           <div className="flex flex-col gap-4">
             {animal.needsList.map(item => (
-              <div key={item._id} className="flex items-center gap-7">
+              <div key={item._id} className="flex items-center justify-between gap-7">
                 <div className="flex gap-1.5">
-                  <div className="w-[88px] h-[88px] rounded-2xl">
-                    <img src={item.image} alt={`Imagem ${item.name}`} className="rounded-2xl"/>
+                  <div className="w-[60px] h-[60px] rounded-2xl">
+                    <img src={item.image} alt={`Imagem ${item.name}`} className="w-[58px] h-[58px] object-cover rounded-2xl"/>
                   </div>
                   <div>
                     <div>{item.name}</div>
@@ -100,6 +138,7 @@ export function DonationPage() {
                     className="rounded-full p-1 cursor-pointer bg-[#DEC8E2]" 
                     type="button"
                     onClick={() => handleRemoveItem(item._id)}
+                    disabled={isPending}
                   >
                     <Minus size={20}/>
                   </button>
@@ -108,6 +147,7 @@ export function DonationPage() {
                     className="rounded-full p-1 cursor-pointer bg-[#C8D5E2]" 
                     type="button"
                     onClick={() => handleAddItem(item._id)}
+                    disabled={isPending}
                   >
                     <Plus size={20}/>
                   </button>
@@ -124,6 +164,7 @@ export function DonationPage() {
               className="bg-white rounded-2xl text-gray-700 py-1 px-4"
               value={extraValue}
               onChange={handleExtraValueChange}
+              disabled={isPending}
             />
           </div>
         </section>
@@ -160,12 +201,14 @@ export function DonationPage() {
               placeholder="Seu nome"
               value={name}
               onChange={handleNameChange}
+              disabled={isPending}
             />
           </div>
 
           <button 
             className="bg-blue-500 text-white rounded-3xl py-1 px-4 hover:bg-blue-600 cursor-pointer"
             onClick={handleOpenModal}
+            disabled={isPending}
           >
             Fazer doação
           </button>
@@ -189,11 +232,10 @@ export function DonationPage() {
             </div>
             <button 
               className="bg-blue-500 text-white rounded-3xl py-1 px-4 hover:bg-blue-600 cursor-pointer"
-              onClick={() => {
-                handleCloseModal()
-              }}
+              onClick={handleSubmitDonation}
+              disabled={isPending}
             >
-              Finalizar doação
+              {isPending ? "Enviando..." : "Finalizar doação"}
             </button>
           </div>
         </div>
