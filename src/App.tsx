@@ -10,6 +10,8 @@ import { DashboardPage } from "./pages/DashboardPage";
 import { LoginPage } from "./pages/LoginPage";
 import { AuthProvider } from "./context/AuthContext";
 import { PrivateRoute } from "./components/PrivateRoute";
+import { AboutPage } from "./pages/AboutPage";
+import { ContactPage } from "./pages/ContactPage";
 
 const queryClient = new QueryClient();
 
@@ -22,8 +24,8 @@ function App() {
               <Navbar/>
               <Routes>
                 <Route path="/" element={<HomePage />} />
-                <Route path="/sobre"/>
-                <Route path="/contato"/>
+                <Route path="/sobre" element={<AboutPage />}/>
+                <Route path="/contato" element={<ContactPage />} />
                 <Route path="/animais" element={<AnimalsPage />} />
                 <Route path="/animais/:id" element={<AnimalPage />} />
                 <Route path="/animais/:id/donation" element={<DonationPage />} />
