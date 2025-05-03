@@ -1,4 +1,4 @@
-import { CircleX } from "lucide-react";
+import { CircleX, PawPrint } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -11,12 +11,7 @@ import {
 import { useState } from "react";
 import { Animal, useAnimals } from "../../../../hooks/useAnimals";
 import { DonationCartItem } from "../DonationCartItem";
-
-interface Donation {
-  date: string;
-  donor: string;
-  amount: string;
-}
+import { useDonationsByAnimal } from "../../../../hooks/useDonationsByAnimal";
 
 interface DonationAnimalModalProps {
   animal: Animal | null;
@@ -36,7 +31,7 @@ export function Donations() {
   if (isLoading) return <p>Carregando animais...</p>;
   if (error) return <p>Erro ao carregar os animais.</p>;
 
-  return (
+   return (
     <div className="w-full md:w-[400px] lg:w-[800px] p-4 flex flex-col gap-7">
       <h2 className="font-bold text-2xl">Doações recebidas</h2>
 
@@ -60,19 +55,26 @@ export function Donations() {
   );
 }
 
+/* ----- Modal com a lista de doações ------*/
 function DonationAnimalModal({ animal, setIsDonationAnimalModalOpen }: DonationAnimalModalProps) {
-  const donations: Donation[] = [
-    { date: "10/12/2025", donor: "João", amount: "R$50,00" },
-    { date: "11/12/2025", donor: "Maria", amount: "R$100,00" },
-    { date: "12/12/2025", donor: "Pedro", amount: "R$75,00" },
-    { date: "13/12/2025", donor: "Ana", amount: "R$80,00" },
-    { date: "14/12/2025", donor: "Lucas", amount: "R$45,00" },
-  ];
+  const { data, isLoading } = useDonationsByAnimal(animal?._id || "");
 
-  const total = donations.reduce((sum, donation) => {
-    const amount = parseFloat(donation.amount.replace("R$", "").replace(",", "."));
-    return sum + amount;
-  }, 0);
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) return "Data inválida";
+    return date.toLocaleDateString('pt-BR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    });
+  };
+
+  const formatCurrency = (value: number) => {
+    return `R$ ${value.toFixed(2).replace('.', ',')}`;
+  };
+
+  if (isLoading) return <p>Carregando doações...</p>;
+  if (!animal) return <div className="text-white">Animal não selecionado.</div>;
 
   return (
     <div className="fixed w-full h-screen overflow-hidden top-0 left-0 bg-black/80 flex">
@@ -86,12 +88,17 @@ function DonationAnimalModal({ animal, setIsDonationAnimalModalOpen }: DonationA
 
         <div className="flex flex-col gap-4 w-full">
           <div className="flex gap-5">
-            <div>
-              <img
-                className="w-[88px] h-[88px] rounded-2xl"
-                src={animal?.images[0]}
-                alt={animal?.name || "Animal"}
-              />
+            <div className="w-[88px] h-[88px] ">
+              {!animal?.images[0] && (
+                <PawPrint className="w-full h-full rounded-2xl bg-gray-300 text-gray-100"/>
+              )}
+              {animal?.images[0] && (
+                  <img
+                    className="rounded-2xl w-full h-full object-cover"
+                    src={animal?.images[0]}
+                    alt={animal?.name || "Animal"}
+                  />
+              )}
             </div>
             <div className="flex flex-col font-semibold">
               <span>{animal?.name || "Nome do Animal"}</span>
@@ -109,18 +116,26 @@ function DonationAnimalModal({ animal, setIsDonationAnimalModalOpen }: DonationA
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {donations.map((donation, index) => (
-                  <TableRow key={index}>
-                    <TableCell>{donation.date}</TableCell>
-                    <TableCell>{donation.donor}</TableCell>
-                    <TableCell>{donation.amount}</TableCell>
-                  </TableRow>
-                ))}
+                {data?.donations.length === 0 ? (
+                    <TableRow>
+                      <TableCell colSpan={3} className="text-center">
+                        Nenhuma doação encontrada para este animal.
+                      </TableCell>
+                    </TableRow>
+                  ) : (
+                    data?.donations.map((donation) => (
+                      <TableRow key={donation._id}>
+                        <TableCell>{formatDate(donation.createdAt)}</TableCell>
+                        <TableCell>{donation.donorName || "Anônimo"}</TableCell>
+                        <TableCell>{formatCurrency(donation.amount)}</TableCell>
+                      </TableRow>
+                    ))
+                  )}
               </TableBody>
               <TableFooter>
                 <TableRow className="rounded-2xl">
                   <TableCell colSpan={2}>Total</TableCell>
-                  <TableCell>R${total.toFixed(2)}</TableCell>
+                  <TableCell>R${formatCurrency(data?.total ?? 0)}</TableCell>
                 </TableRow>
               </TableFooter>
             </Table>
