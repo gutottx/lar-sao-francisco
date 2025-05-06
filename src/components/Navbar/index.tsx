@@ -1,92 +1,122 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { Icon } from "@iconify/react";
 import { useAuth } from "../../context/AuthContext";
 
 export function Navbar() {
   const { isAuthenticated, logout } = useAuth();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const location = useLocation();
 
   return (
-    <nav className="w-full py-6 md:px-16 ">
-      {/* ----- Mobile & Tablet ----- */}
-      <div className="flex flex-col items-center gap-3 lg:hidden mb-4 px-4">
-        <div className="flex items-center justify-between w-full">
+    <div>
+      {/* Navbar principal */}
+      <nav className="md:flex lg:flex justify-between lg:px-10 p-3 relative bg-white z-50 shadow-md">
+        <div className="flex w-full md:w-auto justify-between">
           <Link to="/">
-            <img 
-              src="/logo.png" 
-              alt="Logo Lar São Francisco" 
-              className="w-[80px]"
-            />
+            <img src="/logo.png" alt="Logo do Lar São Francisco" className="h-[82px]" />
           </Link>
-          <div className="flex gap-2 items-center">
-            {isAuthenticated && (
-              <Link to="/dashboard" className="font-bold text-[#2e2d2d] hover:text-[#121417]">
-                Dashboard
-              </Link>
+          <Icon 
+            icon={isMenuOpen ? "material-symbols:close" : "material-symbols:menu-rounded"} 
+            height={55} 
+            color="#2B9EED" 
+            className={`transition-all duration-200 md:hidden lg:hidden ${isMenuOpen ? 'rotate-90' : 'rotate-0'}`} 
+            onClick={toggleMenu} 
+          />
+        </div>
+
+        {/* Menu desktop */}
+        <div className="hidden md:flex flex-col items-center justify-center">
+          <ul className="text-[#121417] flex gap-5 text-[24px] font-light">
+            {location.pathname !== '/' && (
+              <li className="hover:cursor-pointer border-b-2 border-transparent hover:border-[#2B9EED]">
+                <Link to="/">Home</Link>
+              </li>
             )}
-            {!isAuthenticated ? (
-            <Link 
-              to="/login" 
-              className="bg-blue-500 text-white py-1 px-4 rounded-full hover:bg-blue-600 transition"
-            >
-              Entrar
+            <li className="hover:cursor-pointer border-b-2 border-transparent hover:border-[#2B9EED]">
+              <Link to="/sobre">Sobre</Link>
+            </li>
+            <li className="hover:cursor-pointer border-b-2 border-transparent hover:border-[#2B9EED]">
+              <Link to="/animais">Adote / Doe</Link>
+            </li>
+            <li className="hover:cursor-pointer border-b-2 border-transparent hover:border-[#2B9EED]">
+              <Link to="/contato">Contato</Link>
+            </li>
+            {isAuthenticated && (
+              <li className="hover:cursor-pointer border-b-2 border-transparent hover:border-[#2B9EED] font-semibold">
+                <Link to="/dashboard">Dashboard</Link>
+              </li>
+            )}
+          </ul>
+        </div>
+
+        {/* Botão de login/logout */}
+        <div className="hidden md:flex justify-center items-center">
+          {!isAuthenticated ? (
+            <Link to="/login">
+              <button className="bg-[#2B9EED] font-semibold p-2 rounded-full hover:bg-[#1a8cd6] transition-colors duration-300 w-[84px]">
+                Entrar
+              </button>
             </Link>
-            ): (
-              <button 
+          ) : (
+            <button
               onClick={logout}
-              className="bg-blue-500 text-white py-1 px-4 rounded-full hover:bg-blue-600 transition"
+              className="bg-[#2B9EED] font-semibold p-2 rounded-full hover:bg-[#1a8cd6] transition-colors duration-300 w-[84px]"
+              aria-label="Sair da conta"
             >
               Sair
             </button>
-            )}
-          </div>
+          )}
         </div>
-        <div className="flex items-center gap-4">
-          <Link to="/sobre" className="font-bold text-[#2e2d2d] hover:text-[#121417]">Sobre</Link>
-          <Link to="/animais" className="font-bold text-[#2e2d2d] hover:text-[#121417]">Adote/ Doe</Link>
-          <Link to="/contato" className="font-bold text-[#2e2d2d] hover:text-[#121417]">Contato</Link>
-        </div>
-      </div>
+      </nav>
 
-      {/* ----- Laptop & Desktop ----- */}
-      <div className="hidden lg:flex flex-row items-center justify-between w-full">
-        <Link to="/">
-          <img 
-            src="/logo.png" 
-            alt="Logo Lar São Francisco" 
-            className="w-[80px]"
-          />
-        </Link>
+      {/* Menu mobile */}
+      <div className={`absolute w-full h-[335px] bg-[#F2DBD5] flex flex-col items-center justify-center z-40 transition-all duration-300 
+        ${!isMenuOpen ? "top-[-100vh]" : "top-[100px]"}`}>
 
-        <div className="flex items-center gap-4">
-          <Link to="/sobre" className="font-bold text-[#2e2d2d] hover:text-[#121417]">Sobre</Link>
-          <Link to="/animais" className="font-bold text-[#2e2d2d] hover:text-[#121417]">Adote/ Doe</Link>
-          <Link to="/contato" className="font-bold text-[#2e2d2d] hover:text-[#121417]">Contato</Link>
-        </div>
-
-        {/* Botão de login */}
-        <div className="flex gap-2 items-center">
+        <ul className="text-[#121417] text-[24px] font-light flex flex-col gap-10">
+          {location.pathname !== '/' && (
+            <li onClick={toggleMenu}>
+              <Link to="/">Home</Link>
+            </li>
+          )}
+          <li onClick={toggleMenu}>
+            <Link to="/sobre">Sobre</Link>
+          </li>
+          <li onClick={toggleMenu}>
+            <Link to="/animais">Adote / Doe</Link>
+          </li>
+          <li onClick={toggleMenu}>
+            <Link to="/contato">Contato</Link>
+          </li>
           {isAuthenticated && (
-            <Link to="/dashboard" className="font-bold text-[#2e2d2d] hover:text-[#121417]">
-              Dashboard
-            </Link>
+            <li onClick={toggleMenu}>
+              <Link to="/dashboard">Dashboard</Link>
+            </li>
           )}
-
-          {!isAuthenticated ? (
-            <Link 
-              to="/login" 
-              className="bg-blue-500 text-white py-1 px-4 rounded-full hover:bg-blue-600 transition"
-            >
-              Entrar
-            </Link>
-          ) : (
-            <button 
-              onClick={logout}
-              className="bg-blue-500 text-white py-1 px-4 rounded-full hover:bg-blue-600 transition"
-            >
-              Sair
-            </button> 
-          )}
-        </div>
+          <li>
+            {!isAuthenticated ? (
+              <Link to="/login" onClick={toggleMenu}>
+                <button className="lg:bg-[#2B9EED] font-semibold lg:p-2 lg:rounded-full hover:bg-[#1a8cd6] transition-colors duration-300 w-[84px]">
+                  Entrar
+                </button>
+              </Link>
+            ) : (
+              <button
+                onClick={() => {
+                  logout();
+                  toggleMenu();
+                }}
+                className="bg-[#2B9EED] font-semibold p-2 rounded-full hover:bg-[#1a8cd6] transition-colors duration-300 w-[84px]"
+                aria-label="Sair da conta"
+              >
+                Sair
+              </button>
+            )}
+          </li>
+        </ul>
       </div>
-    </nav>
+    </div>
   );
 }
