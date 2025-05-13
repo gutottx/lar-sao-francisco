@@ -17,9 +17,9 @@ export function AboutPage() {
             </div>
 
           <div className="flex flex-col justify-center  gap-4 text-[18px] max-w-[1076px]">
-            <p>Tudo começou com um simples gesto de compaixão. Quando <span className="inline font-bold">[Nome do Fundador ou Nome da ONG]</span> resgatou seu primeiro animal em situação de vulnerabilidade, não imaginava que aquele ato daria início a uma jornada transformadora. O que começou como um pequeno esforço individual logo se tornou um movimento maior, reunindo voluntários, apoiadores e amantes dos animais que compartilham a mesma missão: salvar vidas e oferecer um futuro melhor para cães e gatos abandonados.</p>
+            <p>Tudo começou com um simples gesto de compaixão. Quando <span className="inline font-bold">Fernanda Aline da Silva</span> resgatou seu primeiro animal em situação de vulnerabilidade, não imaginava que aquele ato daria início a uma jornada transformadora. O que começou como um pequeno esforço individual logo se tornou um movimento maior, reunindo voluntários, apoiadores e amantes dos animais que compartilham a mesma missão: salvar vidas e oferecer um futuro melhor para cães e gatos abandonados.</p>
             <p>Com o tempo, percebemos que só o resgate não era suficiente. Muitos animais precisavam de cuidados médicos, alimentação e, principalmente, de um lar. Foi assim que estruturamos nossa ONG, garantindo que cada animal resgatado recebesse tratamento veterinário, carinho e a chance de uma adoção responsável.</p>
-            <p>Hoje, já ajudamos [X] animais, encontramos lares amorosos para [Y] cães e gatos e seguimos firmes no compromisso de transformar realidades. Nosso trabalho só é possível graças a pessoas incríveis como você, que acreditam na causa e fazem parte dessa mudança.</p>
+            <p>Ao longo de 12 anos, já ajudamos mais de <span className="font-bold">1.000</span> animais. Atualmente, cuidamos de <span className="font-bold">100</span> animais resgatados — entre cães, gatos, galinhas e coelhos — e seguimos firmes no compromisso de transformar realidades. Nosso trabalho só é possível graças a pessoas incríveis como você, que acreditam na causa e fazem parte dessa mudança.</p>
             <p>Seja adotando, doando ou voluntariando, você também pode fazer parte dessa história. Vamos juntos?</p>
           </div>
    

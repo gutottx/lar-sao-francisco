@@ -223,7 +223,7 @@ export function DonationPage() {
               className="hover:text-gray-700 cursor-pointer"
               onClick={handleCloseModal}
             />
-            <img src="/qrcode.png" alt="qrcode" />
+            <img src="/qrcode.jpg" alt="qrcode" />
             
             <div className="flex flex-col items-center">
               <p className="text-center">1. Escaneie o QR Code com o app do seu banco ou copie a chave PIX</p>
