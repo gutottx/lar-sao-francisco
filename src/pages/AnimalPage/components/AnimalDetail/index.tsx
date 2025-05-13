@@ -29,7 +29,7 @@ export function AnimalDetail({animal}: AnimalProps) {
         <div className="flex flex-col gap-3">
           <div className="flex items-center gap-5">
             <span className="font-bold text-[24px]">{animal.name}</span>
-            <span>2 anos</span>
+            <span>{formatAge(animal.birthDate)}</span>
           </div>
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-2">
