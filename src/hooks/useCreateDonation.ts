@@ -10,7 +10,7 @@ interface CreateDonationDto {
   donorName?: string;
   animalId: string;
   donatedItems: DonatedItem[];
-  extraAmount?: number;
+  extraAmount?: string;
 }
 
 interface CreateDonationResponse {

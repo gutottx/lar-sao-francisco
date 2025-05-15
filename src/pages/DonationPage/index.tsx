@@ -5,24 +5,34 @@ import { useState } from "react";
 import { useCreateDonation } from "../../hooks/useCreateDonation";
 
 export function DonationPage() {
-  const { id } = useParams(); 
-  const { data: animal, isLoading, error } = useAnimal(id || "");
+  const { id } = useParams();
+  const { data: animal, isLoading, error } = useAnimal(id || '');
   const { mutate: createDonation, isPending } = useCreateDonation();
 
-  const [name, setName] = useState("");
-  const [extraValue, setExtraValue] = useState(0);
+  const [name, setName] = useState('');
+  const [extraValue, setExtraValue] = useState('');
   const [cartItems, setCartItems] = useState<{ [key: string]: number }>({});
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+const parseCurrencyToNumber = (value: string): number => {
+  if (!value) return 0;
+
+  let cleanValue = value.replace(/\./g, '');
+  cleanValue = cleanValue.replace(',', '.');
+
+  return parseFloat(cleanValue) || 0;
+};
+
+
   const handleOpenModal = () => {
     const hasItems = Object.values(cartItems).some(quantity => quantity > 0);
-    if (!hasItems && extraValue <= 0) {
+    if (!hasItems && parseCurrencyToNumber(extraValue) <= 0) {
       alert("Selecione pelo menos um item ou adicione um valor extra.");
       return;
     }
     setIsModalOpen(true);
   };
-  
+
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
@@ -32,8 +42,11 @@ export function DonationPage() {
   };
 
   const handleExtraValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseFloat(e.target.value);
-    setExtraValue(isNaN(value) ? 0 : value);
+    let value = e.target.value;
+
+    if (value.includes('-')) return;
+
+    setExtraValue(value);
   };
 
   const handleAddItem = (itemId: string) => {
@@ -52,7 +65,7 @@ export function DonationPage() {
 
   const calculateSubtotal = () => {
     if (!animal?.needsList) return 0;
-  
+
     return animal.needsList.reduce((acc, item) => {
       const quantity = cartItems[item._id] || 0;
       return acc + item.price * quantity;
@@ -60,7 +73,7 @@ export function DonationPage() {
   };
 
   const calculateTotal = () => {
-    return calculateSubtotal() + extraValue;
+    return calculateSubtotal() + parseCurrencyToNumber(extraValue);
   };
 
   const handleSubmitDonation = () => {
@@ -68,31 +81,32 @@ export function DonationPage() {
       alert("ID do animal não encontrado.");
       return;
     }
+
     const donatedItems = Object.entries(cartItems)
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       .filter(([_, quantity]) => quantity > 0)
       .map(([itemId, quantity]) => ({
         itemId,
         quantity,
       }));
 
+    const numericExtra = parseCurrencyToNumber(extraValue);
+
     const donationData = {
       donorName: name || undefined,
       animalId: id,
       donatedItems,
-      extraAmount: extraValue > 0 ? extraValue : undefined,
+      extraAmount: numericExtra > 0 ? extraValue : undefined,
     };
 
     createDonation(donationData, {
       onSuccess: () => {
-        setName("");
-        setExtraValue(0);
+        setName('');
+        setExtraValue('');
         setCartItems({});
         handleCloseModal();
       },
     });
   };
-
 
   if (isLoading) return <p>Carregando animal...</p>;
   if (error || !animal) return <p>Erro ao carregar animal.</p>;
@@ -159,8 +173,8 @@ export function DonationPage() {
           <div className="w-[240px] flex flex-col gap-2">
             <label htmlFor="extraValue">Doar valor extra:</label>
             <input 
-              type="number" 
-              placeholder="50" 
+              type="text" 
+              placeholder="R$ 50,00" 
               className="bg-white rounded-2xl text-gray-700 py-1 px-4"
               value={extraValue}
               onChange={handleExtraValueChange}
@@ -177,17 +191,24 @@ export function DonationPage() {
               <div className="flex flex-col gap-1.5 pb-8 border-b">
                 <div className="flex justify-between">
                   <span className="font-semibold text-[#61788A]">Subtotal:</span>
-                  <span className="font-bold">R${calculateSubtotal().toFixed(2)}</span>
+                  <span className="font-bold">{calculateSubtotal().toLocaleString('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  })}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="font-semibold text-[#61788A]">Valor extra:</span>
-                  <span className="font-bold">R${extraValue.toFixed(2)}</span>
+                  <span className="font-bold">{parseCurrencyToNumber(extraValue).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', })}</span>
                 </div>
               </div>
               
               <div className="flex justify-between">
                 <span className="text-[18px] font-bold">Total:</span>
-                <span className="text-[18px] font-bold">R${calculateTotal().toFixed(2)}</span>
+                <span className="text-[18px] font-bold">{calculateTotal().toLocaleString('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  })}
+</span>
               </div>
             </div>
           </div>
@@ -227,7 +248,10 @@ export function DonationPage() {
             
             <div className="flex flex-col items-center">
               <p className="text-center">1. Escaneie o QR Code com o app do seu banco ou copie a chave PIX</p>
-              <p className="text-center">2. Insira o valor: <span className="text-[18px] font-bold">R${calculateTotal().toFixed(2)}</span></p>
+              <p className="text-center">2. Insira o valor: <span className="text-[18px] font-bold">{calculateTotal().toLocaleString('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  })}</span></p>
               <p className="text-center">3. Confirme a transação</p>
             </div>
             <button 
