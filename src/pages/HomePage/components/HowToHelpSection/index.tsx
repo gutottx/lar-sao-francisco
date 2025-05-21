@@ -6,7 +6,7 @@ export function HowToHelpSection() {
       <h2 className="font-bold text-2xl text-[#121417]">Como ajudar</h2>
       <div className="flex flex-col md:flex-row  flex-wrap gap-6 items-center ">
         {/* ----- Donation ----- */}
-        <div className="w-[400px] lg:w-[420px] flex flex-col gap-4 items-center">
+        <div className="lg:w-[420px] flex flex-col gap-4 items-center">
           <div className="rounded-3xl">
           <div className="lg:flex-row-reverse rounded-2xl w-[240px] sm:w-[290px] lg:w-[400px] h-[260px] sm:h-[290px] lg:h-[230px] font-bold bg-[#DED7F6] flex flex-col items-center justify-between pt-2 lg:pr-2.5">
               <p className="text-[20px]">Faça uma doação</p>
@@ -20,7 +20,7 @@ export function HowToHelpSection() {
         </div>
         
         {/* ----- Volunteer ----- */}
-        <div className="w-[320px] lg:w-[420px] flex flex-col gap-4 items-center">
+        <div className="lg:w-[420px] flex flex-col gap-4 items-center">
           <div className="rounded-3xl">
           <div className="lg:flex-row-reverse rounded-2xl w-[240px] sm:w-[290px] lg:w-[400px] h-[260px] sm:h-[290px] lg:h-[230px] font-bold bg-[#B2DECA] flex flex-col items-center justify-between pt-2 lg:pr-2.5">
               <p className="text-[20px]">Seja Voluntário</p>

@@ -26,7 +26,7 @@ export function Footer() {
 
       </div>
       <div>
-        <div className="text-white flex items-center">
+        <div className="text-white gap-1 text-[13px] flex items-center ">
           <Copyright size={14} />
           2025 | Grupo DRP05-PJI110-001GRUPO-014 | Univesp
         </div>

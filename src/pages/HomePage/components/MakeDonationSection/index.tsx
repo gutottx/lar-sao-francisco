@@ -22,7 +22,7 @@ export function MakeDonationSection() {
 
       <div className="flex flex-col gap-3">
         <Link className="text-blue-700 font-bold text-right" to='/animais'>Ver todos</Link>
-        <div className="flex gap-3.5 flex-wrap">
+        <div className="grid row-span-2 grid-cols-2 md:flex lg:flex gap-3.5 flex-wrap">
         {animals?.slice(0,4).map(animal => (
             <Link to={`animais/${animal._id}`} key={animal._id} className="flex flex-col gap-1">
               {!animal.images[0] && (
