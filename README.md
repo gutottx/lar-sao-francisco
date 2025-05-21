@@ -6,7 +6,6 @@ Front-End do projeto integrador da UNIVESP - ONG Lar São Francisco.
 
 - ![React](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black) React
 - ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white) TypeScript
-- ![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=nextdotjs&logoColor=white) Next.js
 - ![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-38B2AC?style=flat-square&logo=tailwindcss&logoColor=white) Tailwind CSS
 
 ## Algumas das Funcionalidades
